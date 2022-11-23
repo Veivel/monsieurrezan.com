@@ -5,7 +5,9 @@ const nextConfig = {
   images: {
     domains: [
       'flowbite.com', 
-      'via.placeholder.com'
+      'via.placeholder.com',
+      'placeholder.com',
+      'placekitten.com'
     ]
   },
 }

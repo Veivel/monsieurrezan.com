@@ -1,4 +1,4 @@
-## Configuring
+## Initial Configuration
 
 This file is a note to myself on how to (re?)configure Styled Components and twin.macro with tailwindcss on NextJS-Typescript. Because this crap is kind of pointless.
 
@@ -24,3 +24,10 @@ You will need to configure babel. Yeah.
 
 Refer to: [next-styled-components-typescript](https://github.com/ben-rogerson/twin.examples/tree/master/next-styled-components-typescript#readme)
 Follow everything step-by-step. (This guide was written on 23/11/22, the repo's last commit was on Nov 9. Hopefully nothing breaks in the future.)
+
+## Other Dev Configurations
+
+1. React Responsive Carousel needs its css file to function properly.
+
+`import { Carousel } from "react-responsive-carousel"; import 'react-responsive-carousel/lib/styles/carousel.min.css`
+([credit where credit's due](https://stackoverflow.com/questions/66554854/react-responsive-carousel-is-not-displaying-properly))

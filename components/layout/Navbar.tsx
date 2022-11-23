@@ -1,12 +1,15 @@
-import { Button } from "react-scroll";
+/* eslint-disable react/jsx-key */
+
 import Image from "next/image";
 import Link from "next/link";
 import styled from "styled-components";
 import tw from "twin.macro";
+import useMediaQuery from "../../media";
+import { slide as Menu } from 'react-burger-menu';
 
 // Top-most navbar container
 const NavbarContainer = styled.div`
-    ${tw`flex pl-6 pr-6 py-2 border-b-2 border-gray-200 border-opacity-50 items-center self-center bg-slate-100`}
+    ${tw`flex py-3 px-9 border-b-2 border-gray-200 border-opacity-50 items-center self-center bg-slate-100 `}
 `;
 
 // Navbar Branding
@@ -15,12 +18,12 @@ const NavbarBranding = styled.div`
 `;
 
 const NavbarBrandingItem = styled.div`
-    ${tw`px-5 flex self-center text-black text-2xl`}
+    ${tw`px-5 flex self-center text-black font-semibold text-xl md:text-sm`}
 `;
 
 // Navbar Items
 const NavbarItems = styled.ul`
-    ${tw`list-none w-full h-auto lg:h-full flex lg:ml-20 justify-center items-center`}
+    ${tw`list-none w-full h-auto lg:h-full flex lg:ml-20`}
 `;
 
 const NavbarItem = styled.li`
@@ -29,23 +32,71 @@ const NavbarItem = styled.li`
 
 // Call-to-action button
 const NavbarButton = styled.button`
-    ${tw`bg-sky-600 hover:bg-sky-800 text-white py-2 px-4 rounded-2xl font-bold`}
+    white-space: nowrap;
+    ${tw`bg-gray-700 hover:bg-black text-white text-base py-2 px-4 rounded-2xl font-bold`}
 `;
 
+const FancyButton = styled.button`
+    background-color: #6f8197;
+    border: 2px solid #422800;
+    border-radius: 20px;
+    box-shadow: #422800 4px 4px 0 0;
+    color: #422800;
+    cursor: pointer;
+    display: inline-block;
+    font-weight: 600;
+    font-size: 16px;
+    color: #ffffff;
+    padding: 0 18px;
+    line-height: 25px;
+    text-align: center;
+    align-self: end;
+    text-decoration: none;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+
+    &:hover {
+        background-color: #1c375b;
+    }
+
+    &:active {
+        box-shadow: #422800 2px 2px 0 0;
+        transform: translate(2px, 2px);
+    }
+    ${tw`ml-auto`}
+`;
+
+
 const Navbar = () => {
+    const isDesktop = useMediaQuery('(min-width: 960px)');
     const items:string[] = ["About", "Testimonial", "Katalog", "Motivasi"];
+    const HamburgerIcon = () => (<div className='p-1/2'><svg className="w-8 h-8 text-black" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M4 6h16M4 12h16M4 18h16"></path></svg></div>)
+
     return(
+        <div>
         <NavbarContainer>
             <NavbarBranding>
-                <Image src="https://flowbite.com/docs/images/logo.svg" width={50} height={50} alt="Logo Monsieur Rezan" />
+                <Image src="https://flowbite.com/docs/images/logo.svg" width={40} height={40} alt="Logo Monsieur Rezan" />
                 <NavbarBrandingItem>Monsieur Rezan</NavbarBrandingItem>
             </NavbarBranding>
-            <NavbarItems>
-                {/* eslint-disable-next-line react/jsx-key */}
-                {items.map(item => <NavbarItem>{item}</NavbarItem>)}
-            </NavbarItems>
-            <NavbarButton>Daftar Sekarang!</NavbarButton>
+            { isDesktop 
+                ? 
+                // desktop view
+                <NavbarItems>
+                    {items.map(item => <NavbarItem>{item}</NavbarItem>)}
+                    <FancyButton>Daftar Sekarang!</FancyButton>
+                </NavbarItems>
+                :
+                // mobile view
+                <Menu right
+                    customBurgerIcon={ <Image src="/recycled-icons/menu.svg" width={30} height={30} alt="Mobile Menu Icon"/> }
+                >
+                    {items.map(item => <Link id={item.toLowerCase()} className="menu-item" href={"/"+item}>{item}</Link>)}
+                </Menu>
+            }
         </NavbarContainer>
+        </div>
     );
 }
 
