@@ -5,11 +5,13 @@ import Link from "next/link";
 import styled from "styled-components";
 import tw from "twin.macro";
 import useMediaQuery from "../../media";
-import { slide as Menu } from 'react-burger-menu';
+import { slide as Menu } from "react-burger-menu";
+// TODO: remove
+// import Hamburger from "hamburger-react";
 
 // Top-most navbar container
 const NavbarContainer = styled.div`
-    ${tw`flex py-3 px-9 border-b-2 border-gray-200 border-opacity-50 items-center self-center bg-slate-100 `}
+    ${tw`flex flex-row px-9 border-b-2 border-gray-200 border-opacity-50 items-center self-center bg-slate-100 `}
 `;
 
 // Navbar Branding
@@ -18,7 +20,11 @@ const NavbarBranding = styled.div`
 `;
 
 const NavbarBrandingItem = styled.div`
-    ${tw`px-5 flex self-center text-black font-semibold text-xl md:text-sm`}
+    ${tw`px-5 flex self-center text-black font-semibold text-sm md:text-xl`}
+`;
+
+const MenuWrapper = styled.div`
+    ${tw`[align-self:stretch]`}
 `;
 
 // Navbar Items
@@ -67,11 +73,14 @@ const FancyButton = styled.button`
     ${tw`ml-auto`}
 `;
 
+const Filler = styled.div`
+    ${tw`flex ml-auto`}
+`;
+
 
 const Navbar = () => {
     const isDesktop = useMediaQuery('(min-width: 960px)');
     const items:string[] = ["About", "Testimonial", "Katalog", "Motivasi"];
-    const HamburgerIcon = () => (<div className='p-1/2'><svg className="w-8 h-8 text-black" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M4 6h16M4 12h16M4 18h16"></path></svg></div>)
 
     return(
         <div>
@@ -84,16 +93,21 @@ const Navbar = () => {
                 ? 
                 // desktop view
                 <NavbarItems>
+                    <Filler />
                     {items.map(item => <NavbarItem>{item}</NavbarItem>)}
                     <FancyButton>Daftar Sekarang!</FancyButton>
                 </NavbarItems>
                 :
                 // mobile view
-                <Menu right
-                    customBurgerIcon={ <Image src="/recycled-icons/menu.svg" width={30} height={30} alt="Mobile Menu Icon"/> }
-                >
-                    {items.map(item => <Link id={item.toLowerCase()} className="menu-item" href={"/"+item}>{item}</Link>)}
-                </Menu>
+                <MenuWrapper>
+                    <Menu
+                        right
+                        width={150}
+                        customBurgerIcon={ <Image src="/recycled-icons/menu.svg" width={30} height={30} alt="Mobile Menu Icon"/> }
+                    >
+                        {items.map(item => <a id={item.toLowerCase()} className="menu-item" href={"/"+item}>{item}</a>)}
+                    </Menu>
+                </MenuWrapper>
             }
         </NavbarContainer>
         </div>

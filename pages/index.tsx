@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import Image from 'next/image'
-import Featured from '../components/sections/Featured';
+import Featured from '../components/sections/OldFeatured';
 import Testimonials from '../components/sections/Testimonials';
 import styled from 'styled-components';
 import tw from 'twin.macro';

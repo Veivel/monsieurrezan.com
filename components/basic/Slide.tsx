@@ -2,18 +2,27 @@ import Image from "next/image";
 import styled from "styled-components";
 import tw from "twin.macro";
 import { slide } from "../../types/custom";
+import { LabelContainer, Label, LabelTitle, LabelContent } from "./Label";
 
 const SlideContainer = styled.div`
     max-height: 640px;
     overflow: hidden;
-    ${tw``}`
+    ${tw`relative`}`
 ;
 
 const Slide = ({imgSrc, alt, legend}:slide) => {
     return(
         <SlideContainer>
-            <Image src={imgSrc} alt={alt} width={1920} height={640} style={{overflow: 'hidden'}}/>
-            <p>{legend}</p>
+            <Image // this works, even tho react-responsive-carousel supposedly doesnt recognize next/images.
+                src={imgSrc} 
+                alt={alt} // alt-text
+                width={640} 
+                height={640} 
+                style={{
+                    objectFit: "cover", // prevents stretching (preserve aspect-ratio)
+                    zIndex: -1
+                }}
+            />
         </SlideContainer>
     );
 }
