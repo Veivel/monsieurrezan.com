@@ -3,7 +3,7 @@ import tw from "twin.macro";
 import Image from "next/image";
 import 'react-responsive-carousel/lib/styles/carousel.min.css'
 import { slide } from "../../types/custom";
-import useMediaQuery, { Media, MediaContextProvider } from "../../media";
+import useMediaQuery from "../utils/media/media";
 
 const FeaturedContainer = styled.div`
     ${tw`

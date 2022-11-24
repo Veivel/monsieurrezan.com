@@ -4,14 +4,12 @@ import Image from "next/image";
 import Link from "next/link";
 import styled from "styled-components";
 import tw from "twin.macro";
-import useMediaQuery from "../../media";
+import useMediaQuery from "../utils/media/media";
 import { slide as Menu } from "react-burger-menu";
-// TODO: remove
-// import Hamburger from "hamburger-react";
 
 // Top-most navbar container
 const NavbarContainer = styled.div`
-    ${tw`flex flex-row px-9 border-b-2 border-gray-200 border-opacity-50 items-center self-center bg-slate-100 `}
+    ${tw`flex flex-row px-5 md:px-9 py-2 md:py-0 border-b-2 border-gray-200 border-opacity-50 items-center self-center bg-slate-100 `}
 `;
 
 // Navbar Branding
@@ -23,17 +21,17 @@ const NavbarBrandingItem = styled.div`
     ${tw`px-5 flex self-center text-black font-semibold text-sm md:text-xl`}
 `;
 
-const MenuWrapper = styled.div`
-    ${tw`[align-self:stretch]`}
-`;
-
 // Navbar Items
-const NavbarItems = styled.ul`
+const NavItemWrapper = styled.ul`
     ${tw`list-none w-full h-auto lg:h-full flex lg:ml-20`}
 `;
 
 const NavbarItem = styled.li`
     ${tw`lg:mr-8 flex items-center justify-center min-h-full text-black cursor-pointer font-medium text-lg lg:text-base`}
+`;
+
+const MenuWrapper = styled.div`
+    ${tw`absolute right-5 [z-index: 100]`}
 `;
 
 // Call-to-action button
@@ -61,11 +59,9 @@ const FancyButton = styled.button`
     user-select: none;
     -webkit-user-select: none;
     touch-action: manipulation;
-
     &:hover {
         background-color: #1c375b;
     }
-
     &:active {
         box-shadow: #422800 2px 2px 0 0;
         transform: translate(2px, 2px);
@@ -90,22 +86,20 @@ const Navbar = () => {
                 <NavbarBrandingItem>Monsieur Rezan</NavbarBrandingItem>
             </NavbarBranding>
             { isDesktop 
-                ? 
-                // desktop view
-                <NavbarItems>
+            ? 
+                // desktop view: standard NavBar
+                <NavItemWrapper>
                     <Filler />
                     {items.map(item => <NavbarItem>{item}</NavbarItem>)}
                     <FancyButton>Daftar Sekarang!</FancyButton>
-                </NavbarItems>
-                :
-                // mobile view
-                <MenuWrapper>
-                    <Menu
-                        right
-                        width={150}
-                        customBurgerIcon={ <Image src="/recycled-icons/menu.svg" width={30} height={30} alt="Mobile Menu Icon"/> }
-                    >
-                        {items.map(item => <a id={item.toLowerCase()} className="menu-item" href={"/"+item}>{item}</a>)}
+                </NavItemWrapper>
+            :
+                // mobile view: hamburger sidebar / drawer
+                // TODO: fix the broken hamburger thing
+                <MenuWrapper> 
+                    <Menu right width={175}>
+                        <p className="menu-item"><b>SECTIONS</b></p>
+                        {items.map(item => <Link id={item.toLowerCase()} className="menu-item" href={"/"+item}>{item}</Link>)}
                     </Menu>
                 </MenuWrapper>
             }

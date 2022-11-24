@@ -3,12 +3,9 @@ import tw from "twin.macro";
 import Image from "next/image";
 import { Carousel } from "react-responsive-carousel";
 import 'react-responsive-carousel/lib/styles/carousel.min.css'
-import Slide from "../basic/Slide";
+import Slide from "../elements/Slide";
 import { slide } from "../../types/custom";
-import useMediaQuery, { Media, MediaContextProvider } from "../../media";
-import { useEffect, useState } from "react";
-import Ristektestthingy from "../basic/test";
-import { LabelContainer, Label, LabelTitle, LabelContent } from "../basic/Label";
+import useMediaQuery from "../utils/media/media";
 
 const FeaturedContainer = styled.div`
     ${tw`
@@ -19,7 +16,7 @@ const FeaturedContainer = styled.div`
         justify-center
         items-center
         xl:mt-10
-        bg-amber-400
+        // bg-amber-400
     `}
 `;
 
@@ -73,6 +70,7 @@ const Featured = () => {
         <FeaturedContainer>
             <Carousel 
                 showArrows={true}
+                showThumbs={false}
                 infiniteLoop={true}
                 width="100%"
                 showStatus={false}

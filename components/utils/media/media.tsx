@@ -1,19 +1,4 @@
-
-import { createMedia } from "@artsy/fresnel"
 import { useState, useEffect } from "react";
-
-// @artsy/fresnel approach
-const ExampleAppMedia = createMedia({
-  breakpoints: {
-    xs: 0,
-    sm: 768,
-    md: 1000,
-    lg: 1200,
-  },
-})
-export const mediaStyles = ExampleAppMedia.createMediaStyle()
-export const { Media, MediaContextProvider } = ExampleAppMedia
-
 
 // fireship's vanilla approach (with hooks)
 // credit where credit is due:  https://fireship.io/snippets/use-media-query-hook/
