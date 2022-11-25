@@ -8,8 +8,14 @@ import useMediaQuery from "../utils/media/media";
 import { slide as Menu } from "react-burger-menu";
 
 // Top-most navbar container
-const NavbarContainer = styled.div`
-    ${tw`flex flex-row px-5 md:px-9 py-2 md:py-0 border-b-2 border-gray-200 border-opacity-50 items-center self-center bg-slate-100 `}
+const NavbarContainer = styled.header`
+    ${tw`
+    fixed [z-index: 99] w-full
+    flex flex-row items-center self-center
+    px-5 md:px-9 py-4 md:py-2 border-b-2
+    border-gray-200 border-opacity-50 bg-slate-100
+    shadow-md
+    `}
 `;
 
 // Navbar Branding
@@ -18,7 +24,7 @@ const NavbarBranding = styled.div`
 `;
 
 const NavbarBrandingItem = styled.div`
-    ${tw`px-5 flex self-center text-black font-semibold text-sm md:text-xl`}
+    ${tw`px-5 flex self-center text-black font-extrabold text-lg md:text-xl`}
 `;
 
 // Navbar Items
@@ -27,11 +33,11 @@ const NavItemWrapper = styled.ul`
 `;
 
 const NavbarItem = styled.li`
-    ${tw`lg:mr-8 flex items-center justify-center min-h-full text-black cursor-pointer font-medium text-lg lg:text-base`}
+    ${tw`lg:mr-8 flex items-center justify-center min-h-full text-black cursor-pointer font-normal text-lg lg:text-base`}
 `;
 
 const MenuWrapper = styled.div`
-    ${tw`absolute right-5 [z-index: 100]`}
+    ${tw`absolute right-16 [z-index: 100]`}
 `;
 
 // Call-to-action button
@@ -66,7 +72,7 @@ const FancyButton = styled.button`
         box-shadow: #422800 2px 2px 0 0;
         transform: translate(2px, 2px);
     }
-    ${tw`ml-auto`}
+    ${tw`mr-20 ml-auto`}
 `;
 
 const Filler = styled.div`

@@ -7,10 +7,8 @@ import useMediaQuery from "../utils/media/media";
 
 const FeaturedContainer = styled.div`
     ${tw`
-        w-full
         flex
         flex-col
-        h-full
         justify-center
         items-center
         xl:mt-10

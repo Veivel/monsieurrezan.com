@@ -4,7 +4,9 @@ import Featured from '../components/sections/OldFeatured';
 import Testimonials from '../components/sections/Testimonials';
 import styled from 'styled-components';
 import tw from 'twin.macro';
-import Section from '../components/elements/section/Section';
+import Section from '../components/elements/Section';
+import About from '../components/sections/About';
+import References from '../components/sections/References';
 
 const LandingContainer = styled.div` 
     ${tw`flex flex-col w-full h-full`}
@@ -21,8 +23,8 @@ export default function Home() {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
             <Featured />
-            <Section bgColor="yellow" />
-            <Section bgColor="orange" />
+            <About />
+            <References />
         </LandingContainer>
     );
 }
