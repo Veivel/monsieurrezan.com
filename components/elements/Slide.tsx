@@ -1,7 +1,7 @@
 import Image from "next/image";
 import styled from "styled-components";
 import tw from "twin.macro";
-import { slide } from "../../types/props";
+import { SlideProps } from "../../types/props";
 import { LabelContainer, Label, LabelTitle, LabelContent } from "./Label";
 
 const SlideContainer = styled.div`
@@ -10,7 +10,7 @@ const SlideContainer = styled.div`
     ${tw`relative`}`
 ;
 
-const Slide = ({imgSrc, alt, legend}:slide) => {
+const Slide = ({imgSrc, alt, legend}:SlideProps) => {
     return(
         <SlideContainer>
             <Image // this works, even tho react-responsive-carousel supposedly doesnt recognize next/images.

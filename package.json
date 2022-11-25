@@ -10,12 +10,9 @@
   },
   "dependencies": {
     "@artsy/fresnel": "^6.1.0",
-    "@next/font": "^13.0.5",
     "@types/node": "18.11.9",
     "@types/react": "18.0.25",
     "@types/react-dom": "18.0.9",
-    "eslint": "8.28.0",
-    "eslint-config-next": "13.0.4",
     "hamburger-react": "^2.5.0",
     "next": "13.0.4",
     "react": "18.2.0",
@@ -24,14 +21,19 @@
     "react-responsive-carousel": "^3.2.23",
     "react-scroll": "^1.8.8",
     "styled-components": "^5.3.6",
-    "typescript": "4.9.3"
+    "swiffy-slider": "^1.6.0",
+    "typescript": "4.9.3",
+    "zustand": "^4.1.4"
   },
   "devDependencies": {
     "@types/react-burger-menu": "^2.8.3",
+    "@types/react-page-visibility": "^6.4.1",
     "@types/react-scroll": "^1.8.5",
     "@types/styled-components": "^5.1.26",
     "autoprefixer": "^10.4.13",
     "babel-plugin-macros": "^3.1.0",
+    "eslint": "^8.28.0",
+    "eslint-config-next": "^13.0.5",
     "postcss": "^8.4.19",
     "tailwindcss": "^3.2.4",
     "twin.macro": "^3.0.1"

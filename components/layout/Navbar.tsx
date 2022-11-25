@@ -7,6 +7,8 @@ import tw from "twin.macro";
 import useMediaQuery from "../utils/media/media";
 import { slide as Menu } from "react-burger-menu";
 import Branding from "../elements/Branding";
+import { Link as RSLink } from "react-scroll";
+import { useGlobalStore } from "../utils/state/store";
 
 // Top-most navbar container
 const NavbarContainer = styled.header`
@@ -32,6 +34,13 @@ const MenuWrapper = styled.div`
     ${tw`absolute right-16 [z-index: 100]`}
 `;
 
+const Linkable = styled.div`
+    &:hover {
+        color: #1c375b;
+        transform: scale(1.05);
+    }
+`;
+
 // Call-to-action button
 const NavbarButton = styled.button`
     white-space: nowrap;
@@ -40,22 +49,18 @@ const NavbarButton = styled.button`
 
 const FancyButton = styled.button`
     background-color: #6f8197;
-    border: 2px solid #422800;
+    border: 2px solid #422800; 
     border-radius: 20px;
     box-shadow: #422800 4px 4px 0 0;
     color: #422800;
     cursor: pointer;
     display: inline-block;
-    font-weight: 600;
-    font-size: 16px;
+    font-weight: 600; font-size: 16px;
     color: #ffffff;
     padding: 0 18px;
     line-height: 25px;
     text-align: center;
     align-self: end;
-    text-decoration: none;
-    user-select: none;
-    -webkit-user-select: none;
     touch-action: manipulation;
     &:hover {
         background-color: #1c375b;
@@ -73,19 +78,32 @@ const Filler = styled.div`
 
 
 const Navbar = () => {
+    const activeSection = useGlobalStore(state => state.activeSection);
     const isDesktop = useMediaQuery('(min-width: 960px)');
-    const items:string[] = ["About", "Testimonial", "Katalog", "Motivasi"];
+    const items: {[item: string]: string} = {
+        // "En Français": "FirstSection", 
+        "Sumber Materi": "SumberMateri",
+        "Testimoni": "Testimoni", 
+        "Paket": "Paket", 
+    };
 
     return(
         <div>
         <NavbarContainer>
-            <Branding />
+            <Branding theme="white"/>
             { isDesktop 
             ? 
                 // desktop view: standard NavBar
                 <NavItemWrapper>
                     <Filler />
-                    {items.map(item => <NavbarItem>{item}</NavbarItem>)}
+                    {Object.keys(items).map((item) => 
+                        <RSLink to={items[item]} smooth={true} offset={-200}>
+                            <NavbarItem>
+                                <Linkable style={items[item] === activeSection ? {backgroundColor: "pink"} : {}}>
+                                    {item}
+                                </Linkable>
+                            </NavbarItem>
+                        </RSLink>)}
                     <FancyButton>Daftar Sekarang!</FancyButton>
                 </NavItemWrapper>
             :
@@ -94,7 +112,11 @@ const Navbar = () => {
                 <MenuWrapper> 
                     <Menu right width={175}>
                         <p className="menu-item"><b>SECTIONS</b></p>
-                        {items.map(item => <Link id={item.toLowerCase()} className="menu-item" href={"/"+item}>{item}</Link>)}
+                        {Object.keys(items).map(item => 
+                            <RSLink to={items[item]}>
+                                {item}
+                            </RSLink>
+                        )}
                     </Menu>
                 </MenuWrapper>
             }

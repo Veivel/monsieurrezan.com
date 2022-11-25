@@ -1,6 +1,11 @@
 import tw, { styled } from "twin.macro";
 import Image from "next/image";
 import { PackageProps } from "../../types/props";
+import Link from "next/link";
+
+const ActionButton = styled.button`
+    ${tw`bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full`}
+`;
 
 const TallCard = (props: PackageProps) : JSX.Element => { 
     const [width, height] = [400, 250];
@@ -60,6 +65,8 @@ const TallCard = (props: PackageProps) : JSX.Element => {
                 <CardBody>
                     {props.description}
                 </CardBody>
+                
+                <Link href="/about"><ActionButton>Daftar untuk {props.title}</ActionButton></Link>
             </CardContentWrapper>
         </CardContainer>
     );

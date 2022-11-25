@@ -3,6 +3,9 @@ import Image from "next/image";
 import tw, { styled } from "twin.macro";
 import TallCard from "../elements/TallCard";
 import { PackageProps } from "../../types/props";
+import { Element } from "react-scroll";
+import { useGlobalStore } from "../utils/state/store";
+import { useEffect } from "react";
 
 const PackageCards = styled.div`
     ${tw`flex flex-col md:flex-row [width: 100%] justify-center`}
@@ -10,6 +13,9 @@ const PackageCards = styled.div`
 
 
 const Packages = () : JSX.Element => {
+    const sectionName = "Paket";
+    const setCurrentSection = useGlobalStore(state => state.setActiveSection);
+
     const packages:PackageProps[] = [
         {imgSrc:"https://placekitten.com/g/400/250", title:"Paket A", description:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam."},
         {imgSrc:"https://placekitten.com/g/400/248", title:"Paket B", description:"LOREM ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam."},
@@ -20,11 +26,15 @@ const Packages = () : JSX.Element => {
     ];
 
     return (
-        <Section.SectionWrapper color="#66ccff" >
+        <Section.SectionWrapper color="#66ccff">
             <Section.RowWrapper>
-                <Section.ColWrapper style={{width: "90%"}}>
-                    <Section.Title>Belajar dengan praktek!</Section.Title>
-                    <Section.Body>Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
+                <Section.ColWrapper style={{width: "90%", textAlign: "center"}}>
+                    <Section.Title>
+                        <Element name={sectionName}>
+                            Belajar dengan praktek!
+                        </Element>
+                    </Section.Title>
+                    <Section.Body style={{textAlign: "center"}}>Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
                         sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
                     </Section.Body>
                     <PackageCards>
