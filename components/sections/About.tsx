@@ -4,8 +4,8 @@ const About = () : JSX.Element => {
     return (
         <Section.SectionWrapper color="white" >
             <Section.RowWrapper>
-                <Section.ColWrapper style={{width: "70%"}}>
-                    <Section.Title>Sebuah Pertanyaan yang Menarik?</Section.Title>
+                <Section.ColWrapper style={{width: "75%"}}>
+                    <Section.Title>Mau belajar bahasa perancis?</Section.Title>
                     <Section.Subtitle>Vous voulez étudiez le français?</Section.Subtitle>
                     <Section.Body>Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
                         sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 

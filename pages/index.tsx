@@ -1,15 +1,15 @@
 import Head from 'next/head'
 import Image from 'next/image'
-import Featured from '../components/sections/OldFeatured';
-import Testimonials from '../components/sections/Testimonials';
+import Featured from '../components/sections/Featured';
 import styled from 'styled-components';
 import tw from 'twin.macro';
 import Section from '../components/elements/Section';
 import About from '../components/sections/About';
-import References from '../components/sections/References';
+import Testimonials from '../components/sections/Testimonials';
+import Packages from '../components/sections/Packages';
 
 const LandingContainer = styled.div` 
-    ${tw`flex flex-col w-full h-full`}
+    ${tw`flex flex-col w-full h-full overflow-hidden`}
 `;
 
 
@@ -24,7 +24,8 @@ export default function Home() {
             </Head>
             <Featured />
             <About />
-            <References />
+            <Packages />
+            <Testimonials />
         </LandingContainer>
     );
 }

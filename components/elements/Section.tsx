@@ -5,11 +5,12 @@ class Section {
     // 1
     static SectionWrapper = styled.div`
         background-color: ${props => props.color || "yellow"};
-        ${tw`[min-height: 400px] md:[height: 400px] md:p-10`}    
+        ${tw`[min-height: 400px] md:[min-height: 400px] md:p-10`}    
     `;
 
     // 2
     static RowWrapper = styled.div`
+        width: ${props => props.style?.width}
         ${tw`flex flex-col md:flex-row [align-items: center] justify-center m-2 md:m-5`}
     `;
 
@@ -22,15 +23,15 @@ class Section {
     // items of colwrapper
 
     static Title = styled.h1`
-        ${tw`font-extrabold text-6xl text-black mb-5`}
+        ${tw`font-extrabold text-4xl md:text-6xl text-black mb-2`}
     `;
 
     static Subtitle = styled.h3`
-        ${tw`font-medium text-lg text-slate-600 mt-0`}
+        ${tw`font-light text-base md:text-lg text-slate-900 mt-0`}
     `;
 
     static Body = styled.p`
-        ${tw`font-light text-lg text-gray-900 mt-10`}
+        ${tw`font-light text-base md:text-lg text-gray-900 text-justify mt-8`}
     `;
 
     static Grid = styled.div`

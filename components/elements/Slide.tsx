@@ -1,7 +1,7 @@
 import Image from "next/image";
 import styled from "styled-components";
 import tw from "twin.macro";
-import { slide } from "../../types/custom";
+import { slide } from "../../types/props";
 import { LabelContainer, Label, LabelTitle, LabelContent } from "./Label";
 
 const SlideContainer = styled.div`

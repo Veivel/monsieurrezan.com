@@ -6,6 +6,7 @@ import styled from "styled-components";
 import tw from "twin.macro";
 import useMediaQuery from "../utils/media/media";
 import { slide as Menu } from "react-burger-menu";
+import Branding from "../elements/Branding";
 
 // Top-most navbar container
 const NavbarContainer = styled.header`
@@ -16,15 +17,6 @@ const NavbarContainer = styled.header`
     border-gray-200 border-opacity-50 bg-slate-100
     shadow-md
     `}
-`;
-
-// Navbar Branding
-const NavbarBranding = styled.div`
-    ${tw`flex min-w-max`}
-`;
-
-const NavbarBrandingItem = styled.div`
-    ${tw`px-5 flex self-center text-black font-extrabold text-lg md:text-xl`}
 `;
 
 // Navbar Items
@@ -87,10 +79,7 @@ const Navbar = () => {
     return(
         <div>
         <NavbarContainer>
-            <NavbarBranding>
-                <Image src="https://flowbite.com/docs/images/logo.svg" width={40} height={40} alt="Logo Monsieur Rezan" />
-                <NavbarBrandingItem>Monsieur Rezan</NavbarBrandingItem>
-            </NavbarBranding>
+            <Branding />
             { isDesktop 
             ? 
                 // desktop view: standard NavBar
