@@ -8,12 +8,17 @@ import About from '../components/sections/About';
 import Testimonials from '../components/sections/Testimonials';
 import Packages from '../components/sections/Packages';
 import References from '../components/sections/References';
+import { Suspense } from 'react';
+import WhoAmI from '../components/sections/WhoAmI';
 
 const LandingContainer = styled.div` 
     ${tw`flex flex-col w-full h-full overflow-hidden`}
 `;
 
-
+/** TODO implement SSG/ISR
+ * read: https://nextjs.org/docs/basic-features/data-fetching/get-static-props
+ * https://nextjs.org/docs/basic-features/data-fetching/incremental-static-regeneration#on-demand-revalidation
+ */
 export default function Home() {
     return (
         <LandingContainer>
@@ -26,11 +31,24 @@ export default function Home() {
                 <link href="https://cdn.jsdelivr.net/npm/swiffy-slider@1.6.0/dist/css/swiffy-slider.min.css" rel="stylesheet"></link>
             </Head>
 
-            <Featured />
-            <About />
-            <References />
-            <Testimonials />
-            <Packages />
+            <Suspense>
+                <Featured />
+            </Suspense>
+            <Suspense>
+                <About />
+            </Suspense>
+            <Suspense>
+                <References />
+            </Suspense>
+            <Suspense>
+                <Testimonials />
+            </Suspense>
+            <Suspense>
+                <Packages />
+            </Suspense>
+            <Suspense>
+                <WhoAmI />
+            </Suspense>
 
         </LandingContainer>
     );

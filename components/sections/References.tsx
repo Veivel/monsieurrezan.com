@@ -59,7 +59,12 @@ const References = () => {
                             {slides.map((item:SlideProps, idx) => {
                                 return(
                                 <li key={idx} className={item.slideVisible ? "slide-visible" : ""}>
-                                    <Image src={item.imgSrc} alt={item.alt} width={200} height={200} />
+                                    <Image 
+                                        src={item.imgSrc} 
+                                        alt={item.alt} 
+                                        width={200} 
+                                        height={200} 
+                                    />
                                 </li>)
                             })}
                         </ul>

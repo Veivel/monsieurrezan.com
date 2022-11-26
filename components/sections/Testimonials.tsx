@@ -41,7 +41,12 @@ const Testimonials = () : JSX.Element => {
                             {slides.map((item:SlideProps, idx) => {
                                 return(
                                 <li key={idx} className={item.slideVisible ? "slide-visible" : ""}>
-                                    <Image src={item.imgSrc} alt={item.alt} width={300} height={400} />
+                                    <Image 
+                                        src={item.imgSrc} 
+                                        alt={item.alt} 
+                                        width={300} 
+                                        height={400} 
+                                    />
                                 </li>)
                             })}
                         </ul>

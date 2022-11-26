@@ -1,6 +1,7 @@
 import tw, { styled } from "twin.macro";
 import Branding, { BrandingTitleWhite } from "../elements/Branding";
 import useMediaQuery from "../utils/media/media";
+import Link from "next/link";
 
 // Top-most navbar container
 const FooterContainer = styled.footer`
@@ -10,6 +11,12 @@ const FooterContainer = styled.footer`
     border-gray-200 border-opacity-50 bg-gray-800
     text-gray-200
     shadow-md align-text-top
+    `}
+`;
+
+const FooterRow = styled.div`
+    ${tw`
+        flex flex-row text-center mx-auto
     `}
 `;
 
@@ -31,6 +38,10 @@ const FooterGridItem = styled.p`
     ${tw`py-2 m-1 col-span-1 row-span-1`}
 `;
 
+const FooterLink = styled.a`
+    ${tw`[text-decoration-line: none] [color: lightskyblue] hover:[text-decoration: underline] hover:[cursor: pointer]`}
+`;
+
 const Footer = () => {
     const isDesktop = useMediaQuery('(min-width: 960px)');
     const footerPWidth = isDesktop ? "25%" : "70%"
@@ -39,10 +50,18 @@ const Footer = () => {
         <FooterContainer>
             <FooterCol>
                 <BrandingTitleWhite>Monsieur Rezan</BrandingTitleWhite>
+                <FooterGridItem>Temukan kami di:</FooterGridItem>
+                <FooterRow></FooterRow>
             </FooterCol>
             <FooterCol style={{width: footerPWidth}}>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
-                sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                <span>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
+                    sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                </span>
+                <br /> <br />
+                <span>
+                    Website ini dibangun oleh <FooterLink href="https://github.com/veivel">Veivel</FooterLink>.
+                </span>
             </FooterCol>
             <FooterCol>
                 <FooterGrid>
