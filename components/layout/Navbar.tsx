@@ -6,10 +6,10 @@ import styled from "styled-components";
 import tw from "twin.macro";
 import useMediaQuery from "../utils/media/media";
 import { slide as Menu } from "react-burger-menu";
-import Branding from "../elements/Branding";
+import Branding from "../constants/Branding";
 import { Link as RSLink } from "react-scroll";
 import { useGlobalStore } from "../utils/state/store";
-import FancyButton from "../elements/FancyButton";
+import FancyButton from "../constants/FancyButton";
 
 // Top-most navbar container
 const NavbarContainer = styled.header`
@@ -29,10 +29,6 @@ const NavItemWrapper = styled.ul`
 
 const NavbarItem = styled.li`
     ${tw`lg:mr-8 flex items-center justify-center min-h-full text-black cursor-pointer font-normal text-lg lg:text-base`}
-`;
-
-const MenuWrapper = styled.div`
-    ${tw`absolute right-16 [z-index: 100]`}
 `;
 
 const Linkable = styled.div`
@@ -71,7 +67,7 @@ const Navbar = () => {
             </Link>
             { isDesktop 
             ? 
-                // desktop view: standard NavBar
+                /** desktop view: standard NavBar */
                 <NavItemWrapper>
                     <Filler />
                     {Object.keys(items).map((item) => 
@@ -89,18 +85,8 @@ const Navbar = () => {
                     </Link>
                 </NavItemWrapper>
             :
-                // mobile view: hamburger sidebar / drawer
-                // TODO: fix the broken hamburger thing
-                <MenuWrapper> 
-                    <Menu right width={175}>
-                        <p className="menu-item"><b>SECTIONS</b></p>
-                        {Object.keys(items).map(item => 
-                            <RSLink to={items[item]}>
-                                {item}
-                            </RSLink>
-                        )}
-                    </Menu>
-                </MenuWrapper>
+                /** mobile view: hamburger sidebar / drawer */
+                <Drawer />
             }
         </NavbarContainer>
         </div>

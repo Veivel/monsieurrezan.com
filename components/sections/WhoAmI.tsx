@@ -1,4 +1,4 @@
-import Section from "../elements/Section";
+import Section from "../constants/Section";
 import Image from "next/image";
 import tw, { styled } from "twin.macro";
 

@@ -1,7 +1,7 @@
 import React, { ChangeEvent, useState } from "react";
 import tw, { styled } from "twin.macro";
-import ActionButton from "../elements/ActionButton";
-import Section from "../elements/Section";
+import ActionButton from "../constants/ActionButton";
+import Section from "../constants/Section";
 import useMediaQuery from "../utils/media/media";
 
 const CardHeader = styled.h1`

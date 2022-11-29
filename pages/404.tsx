@@ -1,7 +1,7 @@
 import Head from "next/head";
 import Link from "next/link";
-import FancyButton from "../components/elements/FancyButton";
-import Section from "../components/elements/Section";
+import FancyButton from "../components/constants/FancyButton";
+import Section from "../components/constants/Section";
 
 const Custom404 = () : JSX.Element => {
     return(

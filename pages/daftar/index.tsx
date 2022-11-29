@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import styled from 'styled-components';
-import Section from '../../components/elements/Section';
+import Section from '../../components/constants/Section';
 import tw from 'twin.macro';
 import RegForm from '../../components/sections/RegForm';
 

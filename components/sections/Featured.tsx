@@ -3,7 +3,7 @@ import tw from "twin.macro";
 import Image from "next/image";
 import { Carousel } from "react-responsive-carousel";
 import 'react-responsive-carousel/lib/styles/carousel.min.css'
-import Slide from "../elements/Slide";
+import Slide from "../constants/Slide";
 import { SlideProps } from "../../types/props";
 import useMediaQuery from "../utils/media/media";
 

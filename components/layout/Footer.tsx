@@ -1,5 +1,5 @@
 import tw, { styled } from "twin.macro";
-import Branding, { BrandingTitleWhite } from "../elements/Branding";
+import Branding, { BrandingTitleWhite } from "../constants/Branding";
 import useMediaQuery from "../utils/media/media";
 import Link from "next/link";
 

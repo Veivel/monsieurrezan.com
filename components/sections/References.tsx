@@ -1,5 +1,5 @@
-import Section from "../elements/Section";
-import SwiffySlider from "../elements/SwiffySlider";
+import Section from "../constants/Section";
+import SwiffySlider from "../constants/SwiffySlider";
 import Image from "next/image";
 import { SlideProps } from "../../types/props"; 
 import { styled } from "twin.macro";

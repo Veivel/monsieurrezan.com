@@ -1,4 +1,4 @@
-import Section from "../elements/Section";
+import Section from "../constants/Section";
 
 const About = () : JSX.Element => {
     return (

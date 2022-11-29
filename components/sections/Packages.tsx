@@ -1,7 +1,7 @@
-import Section from "../elements/Section";
+import Section from "../constants/Section";
 import Image from "next/image";
 import tw, { styled } from "twin.macro";
-import TallCard from "../elements/TallCard";
+import TallCard from "../constants/TallCard";
 import { PackageProps } from "../../types/props";
 import { Element } from "react-scroll";
 import { useGlobalStore } from "../utils/state/store";

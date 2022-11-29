@@ -1,8 +1,8 @@
-import Section from "../elements/Section";
+import Section from "../constants/Section";
 import Image from "next/image";
 import useMediaQuery from "../utils/media/media";
 import { SlideProps } from "../../types/props";
-import SwiffySlider from "../elements/SwiffySlider";
+import SwiffySlider from "../constants/SwiffySlider";
 import tw, { styled } from "twin.macro";
 import { Element } from "react-scroll";
 import { useGlobalStore } from "../utils/state/store";

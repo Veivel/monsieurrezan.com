@@ -3,7 +3,7 @@ import Featured from '../components/sections/Featured';
 import styled from 'styled-components';
 import tw from 'twin.macro';
 import Script from 'next/script';
-import Section from '../components/elements/Section';
+import Section from '../components/constants/Section';
 import About from '../components/sections/About';
 import Testimonials from '../components/sections/Testimonials';
 import Packages from '../components/sections/Packages';
