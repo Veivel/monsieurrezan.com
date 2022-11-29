@@ -66,7 +66,9 @@ const Navbar = () => {
     return(
         <div>
         <NavbarContainer>
-            <Branding theme="white"/>
+            <Link href="/" style={{textDecorationLine: "none"}}>
+                <Branding theme="white"/>
+            </Link>
             { isDesktop 
             ? 
                 // desktop view: standard NavBar
@@ -80,7 +82,11 @@ const Navbar = () => {
                                 </Linkable>
                             </NavbarItem>
                         </RSLink>)}
-                    <FancyButton>Daftar Sekarang!</FancyButton>
+                    <Link style={{color: "white", textDecorationLine: "none"}}href="/daftar/">
+                        <FancyButton>
+                            Daftar Sekarang!
+                        </FancyButton>
+                    </Link>
                 </NavItemWrapper>
             :
                 // mobile view: hamburger sidebar / drawer
