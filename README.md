@@ -10,7 +10,7 @@
 
 ## Development Process
 
-## What's next? (TODO)
+## What's next?
 1. rework the swiper/carousels (ideas: https://swiperjs.com/react or https://github.com/alvarotrigo/react-fullpage)
 2. work on backend email stuff https://www.npmjs.com/package/emailjs https://www.emailjs.com
 
