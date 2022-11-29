@@ -10,6 +10,7 @@ import Branding from "../constants/Branding";
 import { Link as RSLink } from "react-scroll";
 import { useGlobalStore } from "../utils/state/store";
 import FancyButton from "../constants/FancyButton";
+import Drawer from "./Drawer";
 
 // Top-most navbar container
 const NavbarContainer = styled.header`
