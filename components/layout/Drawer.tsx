@@ -9,13 +9,13 @@ const MenuWrapper = styled.div`
     ${tw`absolute right-16 [z-index: 100]`}
 `;
 
-const Drawer = () : JSX.Element => {
+const Drawer = (props: any) : JSX.Element => { // TODO
     return(
         <MenuWrapper> 
             <Menu right width={175}>
                 <p className="menu-item"><b>SECTIONS</b></p>
-                {Object.keys(items).map(item => 
-                    <RSLink to={items[item]}>
+                {Object.keys(props?.items).map(item => 
+                    <RSLink to={props?.items[item]}>
                         {item}
                     </RSLink>
                 )}

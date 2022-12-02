@@ -49,16 +49,16 @@ const Filler = styled.div`
     ${tw`flex ml-auto`}
 `;
 
+const items: {[item: string]: string} = {
+    // "En Français": "FirstSection", 
+    "Sumber Materi": "SumberMateri",
+    "Testimoni": "Testimoni", 
+    "Paket": "Paket", 
+};
 
 const Navbar = () => {
     const activeSection = useGlobalStore(state => state.activeSection);
     const isDesktop = useMediaQuery('(min-width: 960px)');
-    const items: {[item: string]: string} = {
-        // "En Français": "FirstSection", 
-        "Sumber Materi": "SumberMateri",
-        "Testimoni": "Testimoni", 
-        "Paket": "Paket", 
-    };
 
     return(
         <div>
@@ -87,7 +87,7 @@ const Navbar = () => {
                 </NavItemWrapper>
             :
                 /** mobile view: hamburger sidebar / drawer */
-                <Drawer />
+                <Drawer items={items}/>
             }
         </NavbarContainer>
         </div>
