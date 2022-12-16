@@ -14,7 +14,7 @@ const MenuWrapper = styled.div`
 
 const MenuContent = styled.div`
   ${tw`
-    bg-amber-200 w-full h-full gap-24 px-5 py-24
+    bg-white w-full h-full gap-24 px-5 py-24 shadow-2xl
   `}
 `;
 

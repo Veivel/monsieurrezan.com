@@ -9,7 +9,7 @@ import { slide as Menu } from "react-burger-menu";
 import Branding from "../constants/Branding";
 import { Link as ScrollLink } from "react-scroll";
 import { useGlobalStore } from "../utils/state/store";
-import FancyButton from "../constants/FancyButton";
+import FancyButton from "../constants/buttons/FancyButton";
 import Drawer from "./Drawer";
 import { useState } from "react";
 

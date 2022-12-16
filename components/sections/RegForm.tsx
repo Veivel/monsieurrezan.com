@@ -1,6 +1,6 @@
 import React, { ChangeEvent, useState } from "react";
 import tw, { styled } from "twin.macro";
-import ActionButton from "../constants/ActionButton";
+import ActionButton from "../constants/buttons/ActionButton";
 import Section from "../constants/Section";
 import useMediaQuery from "../utils/media/media";
 

@@ -17,24 +17,25 @@ const Packages = () : JSX.Element => {
     const setCurrentSection = useGlobalStore(state => state.setActiveSection);
 
     const packages:PackageProps[] = [
-        {imgSrc:"https://placekitten.com/g/400/250", title:"Paket A", description:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam."},
-        {imgSrc:"https://placekitten.com/g/400/248", title:"Paket B", description:"LOREM ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam."},
-        {imgSrc:"https://placekitten.com/g/400/251", title:"Paket C", description:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam."},
-        {imgSrc:"https://placekitten.com/g/401/250", title:"Paket D", description:"LOREM ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam."},
-        {imgSrc:"https://placekitten.com/401/252", title:"Paket E", description:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam."},
-        {imgSrc:"https://via.placeholder.com/400x250.png", title:"Paket F", description:"LOREM IPSUM dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam."},
+        {imgSrc:"https://placekitten.com/g/400/300", title:"Paket A", description:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam."},
+        {imgSrc:"https://placekitten.com/g/400/308", title:"Paket B", description:"LOREM ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam."},
+        {imgSrc:"https://placekitten.com/g/400/301", title:"Paket C", description:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam."},
+        {imgSrc:"https://placekitten.com/g/401/300", title:"Paket D", description:"LOREM ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam."},
+        {imgSrc:"https://placekitten.com/401/303", title:"Paket E", description:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam."},
+        {imgSrc:"https://via.placeholder.com/400x300.png", title:"Paket F", description:"LOREM IPSUM dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam."},
     ];
 
     return (
         <Section.SectionWrapper color="#66ccff">
             <Section.RowWrapper>
-                <Section.ColWrapper style={{textAlign: "center"}}>
+                <div className="text-center flex flex-col px-48">
                     <Section.Title>
                         <Element name={sectionName}>
                             Belajar dengan praktek!
                         </Element>
                     </Section.Title>
-                    <Section.Body style={{textAlign: "center"}}>Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
+                    <Section.Body className="text-center mx-auto">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
                         sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
                     </Section.Body>
                     <PackageCards>
@@ -47,7 +48,7 @@ const Packages = () : JSX.Element => {
                         <TallCard {...packages[4]}/>
                         <TallCard {...packages[5]}/>
                     </PackageCards>
-                </Section.ColWrapper>
+                </div>
             </Section.RowWrapper>
         </Section.SectionWrapper>
     );

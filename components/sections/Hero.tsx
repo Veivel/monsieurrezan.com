@@ -13,6 +13,8 @@ import { Autoplay, Navigation, Pagination } from "swiper";
 import 'swiper/css';
 import "swiper/css/pagination";
 import "swiper/css/navigation";
+import { useRef, useCallback } from "react";
+import CircleButton from "../constants/buttons/CircleButton";
 
 const FeaturedContainer = styled.div`
     ${tw`
@@ -33,17 +35,29 @@ const slides:SlideProps[] = [
 
 const Featured = () => {
     // const isDesktop = useMediaQuery('(min-width: 960px)');
+    const sliderRef = useRef<any>(null);
 
+    const handlePrev = useCallback(() => {
+      if (!sliderRef.current) return;
+      sliderRef.current.swiper.slidePrev();
+    }, []);
+  
+    const handleNext = useCallback(() => {
+      if (!sliderRef.current) return;
+      sliderRef.current.swiper.slideNext();
+    }, []);
 
     return (
         <FeaturedContainer>
+            <CircleButton className="text-xl absolute z-[999] left-8 top-24 lg:top-80" onClick={handlePrev}>{"←"}</CircleButton>
             <Swiper
-                navigation={true} 
+                navigation={false} 
                 pagination={{
                     // dynamicBullets: true,
                     clickable: true
                 }}
                 modules={[Navigation, Pagination, Autoplay]}
+                ref={sliderRef}
                 loop={true}
                 autoplay={{
                     delay: 5000,
@@ -68,6 +82,7 @@ const Featured = () => {
                     );
                 })}
             </Swiper>
+            <CircleButton className="text-xl absolute z-[999] right-8 top-24 lg:top-80" onClick={handleNext}>{"→"}</CircleButton>
         </FeaturedContainer>
     );
 }

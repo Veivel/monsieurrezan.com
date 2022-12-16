@@ -12,6 +12,7 @@ import 'swiper/css';
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import { useRef, useCallback } from "react";
+import CircleButton from "../constants/buttons/CircleButton";
 
 const RowWrapper1 = styled(Section.RowWrapper)`
     width: 65%;
@@ -68,7 +69,7 @@ const References = () => {
                     </Title1>
                     <Section.Body>
                         Bahan materi yang digunakan untuk belajar semuanya diambil dari sini! 
-                        Mulai dari Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
                         sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
                     </Section.Body>
             </RowWrapper1>
@@ -100,7 +101,7 @@ const References = () => {
                     >
                         {slides.map((item:SlideProps, idx) => {
                             return (
-                                <SwiperSlide key={idx}>
+                                <SwiperSlide key={idx} >
                                     <div>
                                         <Image 
                                             src={item.imgSrc}
@@ -115,18 +116,12 @@ const References = () => {
                         })}
                     </Swiper>
                     <div className="flex flex-row justify-center mt-5">
-                        <button 
-                            className="text-white border bg-sky-800 rounded-lg w-[45px] h-[45px] p-2 mx-2 active:bg-sky-500"
-                            onClick={handlePrev}
-                        >
+                        <CircleButton onClick={handlePrev}>
                             {"←"}
-                        </button>
-                        <button 
-                            className="text-white border bg-sky-800 rounded-lg w-[45px] h-[45px] p-2 mx-2 active:bg-sky-500"
-                            onClick={handleNext}
-                        >
+                        </CircleButton>
+                        <CircleButton onClick={handleNext}>
                             {"→"}
-                        </button>
+                        </CircleButton>
                     </div>
 
                 </SliderColWrapper>
