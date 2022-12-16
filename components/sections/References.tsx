@@ -1,10 +1,17 @@
 import Section from "../constants/Section";
-import SwiffySlider from "../constants/SwiffySlider";
-import Image from "next/image";
 import { SlideProps } from "../../types/props"; 
-import { styled } from "twin.macro";
+import tw, { styled } from "twin.macro";
 import { Element } from "react-scroll";
 import { useGlobalStore } from "../utils/state/store";
+import { Swiper, SwiperSlide, useSwiper } from 'swiper/react';
+import { Autoplay, Navigation, Pagination } from "swiper";
+import Image from "next/image";
+
+// Import Swiper styles
+import 'swiper/css';
+import "swiper/css/pagination";
+import "swiper/css/navigation";
+import { useRef, useCallback } from "react";
 
 const RowWrapper1 = styled(Section.RowWrapper)`
     width: 65%;
@@ -20,12 +27,25 @@ const Title1 = styled(Section.Title)`
 const SliderColWrapper = styled(Section.ColWrapper)`
     margin-top: 32px;
     margin-bottom: 64px;
-    width: 75%;
+    ${tw`
+        w-[85%] md:w-[100%]
+    `}
 `;
 
 const References = () => {
     const sectionName = "SumberMateri";
-    const setCurrentSection = useGlobalStore(state => state.setActiveSection);
+    
+    const sliderRef = useRef<any>(null);
+
+    const handlePrev = useCallback(() => {
+      if (!sliderRef.current) return;
+      sliderRef.current.swiper.slidePrev();
+    }, []);
+  
+    const handleNext = useCallback(() => {
+      if (!sliderRef.current) return;
+      sliderRef.current.swiper.slideNext();
+    }, []);
 
     const slides:SlideProps[] = [
         {imgSrc: "https://placekitten.com/g/201/200", alt: "TODO", slideVisible: true},
@@ -54,22 +74,61 @@ const References = () => {
             </RowWrapper1>
             <Section.RowWrapper>
                 <SliderColWrapper>
-                    <div className={SwiffySlider.LongerSwiffySlider} data-slider-nav-autoplay-interval="3500">
-                        <ul className={SwiffySlider.Container}>
-                            {slides.map((item:SlideProps, idx) => {
-                                return(
-                                <li key={idx} className={item.slideVisible ? "slide-visible" : ""}>
-                                    <Image 
-                                        src={item.imgSrc} 
-                                        alt={item.alt} 
-                                        width={200} 
-                                        height={200} 
-                                    />
-                                </li>)
-                            })}
-                        </ul>
-                        <SwiffySlider.Nav />
+                    <Swiper
+                        navigation={false}
+                        modules={[Navigation, Autoplay]}
+                        loop={true}
+                        ref={sliderRef}
+                        spaceBetween={0}
+                        slidesPerView="auto"
+                        breakpoints={{
+                            "@0.00": {
+                              slidesPerView: 2,
+                            },
+                            "@0.75": {
+                              slidesPerView: 3,
+                            },
+                            "@1.50": {
+                              slidesPerView: 5,
+                            },
+                          }}
+                        autoplay={{
+                            delay: 3000,
+                            disableOnInteraction: true,
+                        }}
+
+                    >
+                        {slides.map((item:SlideProps, idx) => {
+                            return (
+                                <SwiperSlide key={idx}>
+                                    <div>
+                                        <Image 
+                                            src={item.imgSrc}
+                                            width={150}
+                                            height={150}
+                                            alt={item.alt}
+                                        />
+                                        {/* <p className="absolute top-4 left-4 font-bold text-2xl text-white shadow-md">Slide #{idx}</p> */}
+                                    </div>
+                                </SwiperSlide>
+                            );
+                        })}
+                    </Swiper>
+                    <div className="flex flex-row justify-center mt-5">
+                        <button 
+                            className="text-white border bg-sky-800 rounded-lg w-[45px] h-[45px] p-2 mx-2 active:bg-sky-500"
+                            onClick={handlePrev}
+                        >
+                            {"←"}
+                        </button>
+                        <button 
+                            className="text-white border bg-sky-800 rounded-lg w-[45px] h-[45px] p-2 mx-2 active:bg-sky-500"
+                            onClick={handleNext}
+                        >
+                            {"→"}
+                        </button>
                     </div>
+
                 </SliderColWrapper>
             </Section.RowWrapper>
         </Section.SectionWrapper>

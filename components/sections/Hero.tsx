@@ -7,7 +7,7 @@ import Slide from "../constants/Slide";
 import { SlideProps } from "../../types/props";
 import useMediaQuery from "../utils/media/media";
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation, Pagination } from "swiper";
+import { Autoplay, Navigation, Pagination } from "swiper";
 
 // Import Swiper styles
 import 'swiper/css';
@@ -43,8 +43,12 @@ const Featured = () => {
                     // dynamicBullets: true,
                     clickable: true
                 }}
-                modules={[Navigation, Pagination]}
+                modules={[Navigation, Pagination, Autoplay]}
                 loop={true}
+                autoplay={{
+                    delay: 5000,
+                    disableOnInteraction: false,
+                }}
             >
                 {slides.map((item:SlideProps, idx) => {
                     return (
@@ -57,8 +61,8 @@ const Featured = () => {
                                     height={600}
                                     alt={item.alt}
                                 />
-                                <p className="absolute top-24 left-24 font-extrabold text-6xl">Slide #{idx}</p>
-                                <p className="absolute top-40 left-24 font-light text-xl">Masukkan dynamic text.</p>
+                                <p className="absolute top-24 left-24 font-extrabold text-6xl text-white shadow-sm">Slide #{idx}</p>
+                                <p className="absolute top-40 left-24 font-light text-xl text-white shadow-sm">Masukkan dynamic text.</p>
                             </div>
                         </SwiperSlide>
                     );

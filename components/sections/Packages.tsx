@@ -28,7 +28,7 @@ const Packages = () : JSX.Element => {
     return (
         <Section.SectionWrapper color="#66ccff">
             <Section.RowWrapper>
-                <Section.ColWrapper style={{width: "90%", textAlign: "center"}}>
+                <Section.ColWrapper style={{textAlign: "center"}}>
                     <Section.Title>
                         <Element name={sectionName}>
                             Belajar dengan praktek!
