@@ -7,13 +7,14 @@ import tw from "twin.macro";
 import useMediaQuery from "../utils/media/media";
 import { slide as Menu } from "react-burger-menu";
 import Branding from "../constants/Branding";
-import { Link as RSLink } from "react-scroll";
+import { Link as ScrollLink } from "react-scroll";
 import { useGlobalStore } from "../utils/state/store";
 import FancyButton from "../constants/FancyButton";
 import Drawer from "./Drawer";
+import { useState } from "react";
 
 // Top-most navbar container
-const NavbarContainer = styled.header`
+const NavbarContainer = styled.nav`
     ${tw`
     fixed [z-index: 99] w-full
     flex flex-row items-center self-center
@@ -25,11 +26,11 @@ const NavbarContainer = styled.header`
 
 // Navbar Items
 const NavItemWrapper = styled.ul`
-    ${tw`list-none w-full h-auto lg:h-full flex lg:ml-20`}
+    ${tw`w-full h-auto lg:h-full flex flex-row lg:ml-20`}
 `;
 
 const NavbarItem = styled.li`
-    ${tw`lg:mr-8 flex items-center justify-center min-h-full text-black cursor-pointer font-normal text-lg lg:text-base`}
+    ${tw`md:mr-8 flex items-center justify-center min-h-full text-black cursor-pointer font-normal text-lg md:text-base`}
 `;
 
 const Linkable = styled.div`
@@ -49,16 +50,26 @@ const Filler = styled.div`
     ${tw`flex ml-auto`}
 `;
 
-const items: {[item: string]: string} = {
+const ReverseFlex = styled.div`${tw`flex flex-row-reverse mr-12`}`;
+
+export type SECTION_MAP = {
+    [item: string]: string
+}
+
+const items: SECTION_MAP = {
+    /** [judul]: [link / scroll link] */
+
     // "En Français": "FirstSection", 
     "Sumber Materi": "SumberMateri",
     "Testimoni": "Testimoni", 
-    "Paket": "Paket", 
+    "Katalog Paket": "Paket", 
+    "Tentang Saya": "TentangSaya"
 };
 
 const Navbar = () => {
     const activeSection = useGlobalStore(state => state.activeSection);
     const isDesktop = useMediaQuery('(min-width: 960px)');
+    const [isShowDropdown, setIsShowDropdown] = useState<boolean>(false);
 
     return(
         <div>
@@ -66,28 +77,51 @@ const Navbar = () => {
             <Link href="/" style={{textDecorationLine: "none"}}>
                 <Branding theme="white"/>
             </Link>
-            { isDesktop 
-            ? 
-                /** desktop view: standard NavBar */
-                <NavItemWrapper>
-                    <Filler />
-                    {Object.keys(items).map((item) => 
-                        <RSLink to={items[item]} smooth={true} offset={-200}>
-                            <NavbarItem>
-                                <Linkable style={items[item] === activeSection ? {backgroundColor: "pink"} : {}}>
-                                    {item}
-                                </Linkable>
-                            </NavbarItem>
-                        </RSLink>)}
-                    <Link style={{color: "white", textDecorationLine: "none"}}href="/daftar/">
-                        <FancyButton>
-                            Daftar Sekarang!
-                        </FancyButton>
-                    </Link>
-                </NavItemWrapper>
+            <NavItemWrapper>
+            { isDesktop ? 
+            <>
+                {/* desktop view */}
+                <Filler />
+                {Object.keys(items).map((item) => 
+                    <ScrollLink to={items[item]} smooth={true} offset={-200}>
+                        <NavbarItem>
+                            <Linkable style={items[item] === activeSection ? {backgroundColor: "pink"} : {}}>
+                                {item}
+                            </Linkable>
+                        </NavbarItem>
+                    </ScrollLink>)}
+                <Link style={{color: "white", textDecorationLine: "none"}}href="/daftar/">
+                    <FancyButton>
+                        Daftar Sekarang!
+                    </FancyButton>
+                </Link>
+            </>
             :
-                /** mobile view: hamburger sidebar / drawer */
+            <>
+                {/* mobile view */}
+                <div className="ml-auto">
+                    <div 
+                        onClick={e => setIsShowDropdown(!isShowDropdown)}
+                    >
+                        <Image 
+                            src="/recycled-icons/hamburger.png"
+                            width={35}
+                            height={35}
+                            alt="hamburger"
+                        />
+                    </div>
+                </div>
+            </>
+            }
+            </NavItemWrapper>
+            {
+            isShowDropdown ?
+            <>
+                {/* mobile drawer that shows only when hamburger is clicked */}
                 <Drawer items={items}/>
+            </>
+            :
+            <></>
             }
         </NavbarContainer>
         </div>

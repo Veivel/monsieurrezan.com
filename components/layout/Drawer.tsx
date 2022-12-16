@@ -1,26 +1,40 @@
 /* eslint-disable react/jsx-key */
 import styled from "styled-components";
 import tw from "twin.macro";
-import Branding from "../constants/Branding";
-import { slide as Menu } from "react-burger-menu";
-import { Link as RSLink } from "react-scroll";
+import { Link as ScrollLink } from "react-scroll";
+import Link from "next/link";
+import { SECTION_MAP } from "./Navbar";
 
 const MenuWrapper = styled.div`
-    ${tw`absolute right-16 [z-index: 100]`}
+    ${tw`
+    absolute left-0 top-0 [z-index: 100] flex flex-col z-50 
+    w-[60%] h-screen
+    `}
 `;
 
-const Drawer = (props: any) : JSX.Element => { // TODO
+const MenuContent = styled.div`
+  ${tw`
+    bg-amber-200 w-full h-full gap-24 px-5 py-24
+  `}
+`;
+
+const Drawer = ({items}:{items:SECTION_MAP}) : JSX.Element => { // TODO
     return(
-        <MenuWrapper> 
-            <Menu right width={175}>
-                <p className="menu-item"><b>SECTIONS</b></p>
-                {Object.keys(props?.items).map(item => 
-                    <RSLink to={props?.items[item]}>
-                        {item}
-                    </RSLink>
-                )}
-            </Menu>
-        </MenuWrapper>
+        <MenuWrapper>
+          <MenuContent>
+            {Object.keys(items).map((key, index) => (
+              <ScrollLink
+                key={index}
+                // href={items[key]}
+                to={items[key]}
+              >
+                <div className="z-40 text-black font-semibold text-xl my-6">
+                  {key}
+                </div>
+              </ScrollLink>
+            ))}
+          </MenuContent>
+      </MenuWrapper>
     ); 
 }
 

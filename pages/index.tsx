@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import Featured from '../components/sections/Featured';
+import Featured from '../components/sections/Hero';
 import styled from 'styled-components';
 import tw from 'twin.macro';
 import Script from 'next/script';
