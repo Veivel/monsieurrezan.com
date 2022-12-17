@@ -1,7 +1,7 @@
 import Section from "../constants/Section";
 import Image from "next/image";
 import useMediaQuery from "../utils/media/media";
-import { SlideProps } from "../../types/props";
+import { SLIDE_PROPS_TYPE } from "../../types/props";
 import tw, { styled } from "twin.macro";
 import { Element } from "react-scroll";
 
@@ -21,7 +21,7 @@ const Testimonials = () : JSX.Element => {
     const isDesktop = useMediaQuery('(min-width: 960px)');
     
     const sectionName = "Testimoni";
-    const slides:SlideProps[] = [
+    const slides:SLIDE_PROPS_TYPE[] = [
         {imgSrc: "https://placekitten.com/g/300/400", alt: "TODO"},
         {imgSrc: "https://placekitten.com/g/301/400", alt: "TODO", slideVisible: true},
         {imgSrc: "https://placekitten.com/g/300/402", alt: "TODO"},
@@ -46,7 +46,7 @@ const Testimonials = () : JSX.Element => {
                         slidesPerView="auto"
                         className="effectStuff shadow-xl shadow-gray-700 w-full ml-0"
                     >
-                        {slides.map((item:SlideProps, idx) => {
+                        {slides.map((item:SLIDE_PROPS_TYPE, idx) => {
                             return (
                                 <SwiperSlide key={idx}>
                                     <div className="w-[60px] h-[400px]">

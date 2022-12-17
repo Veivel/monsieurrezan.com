@@ -1,6 +1,6 @@
 import tw, { styled } from "twin.macro";
 import Image from "next/image";
-import { PackageProps } from "../../types/props";
+import { PACKAGE_PROPS_TYPE } from "../../types/props";
 import Link from "next/link";
 import ActionButton from "./buttons/ActionButton";
 
@@ -42,7 +42,7 @@ const CardBody = styled.p`
     ${tw`font-light text-base md:text-base text-justify mt-5`}
 `;
 
-const TallCard = (props: PackageProps) : JSX.Element => { 
+const TallCard = (props: PACKAGE_PROPS_TYPE) : JSX.Element => { 
     const [width, height] = [300, 260];
 
     return (

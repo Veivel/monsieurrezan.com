@@ -2,7 +2,7 @@ import Section from "../constants/Section";
 import Image from "next/image";
 import tw, { styled } from "twin.macro";
 import TallCard from "../constants/TallCard";
-import { PackageProps } from "../../types/props";
+import { PACKAGE_PROPS_TYPE } from "../../types/props";
 import { Element } from "react-scroll";
 import { useGlobalStore } from "../utils/state/store";
 import { useEffect } from "react";
@@ -16,7 +16,7 @@ const Packages = () : JSX.Element => {
     const sectionName = "Paket";
     const setCurrentSection = useGlobalStore(state => state.setActiveSection);
 
-    const packages:PackageProps[] = [
+    const packages:PACKAGE_PROPS_TYPE[] = [
         {imgSrc:"https://placekitten.com/g/400/300", title:"Paket A", description:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam."},
         {imgSrc:"https://placekitten.com/g/400/308", title:"Paket B", description:"LOREM ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam."},
         {imgSrc:"https://placekitten.com/g/400/301", title:"Paket C", description:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam."},

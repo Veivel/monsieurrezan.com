@@ -12,13 +12,14 @@ import { useGlobalStore } from "../utils/state/store";
 import FancyButton from "../constants/buttons/FancyButton";
 import Drawer from "./Drawer";
 import { useState } from "react";
+import ScalingLink from "../constants/ScalingLink";
 
 // Top-most navbar container
 const NavbarContainer = styled.nav`
     ${tw`
     fixed [z-index: 99] w-full
     flex flex-row items-center self-center
-    px-5 md:px-9 py-4 md:py-2 border-b-2
+    px-5 md:px-9 py-6 md:py-3 border-b-2
     border-gray-200 border-opacity-50 bg-slate-100
     shadow-md
     `}
@@ -31,13 +32,6 @@ const NavItemWrapper = styled.ul`
 
 const NavbarItem = styled.li`
     ${tw`md:mr-8 flex items-center justify-center min-h-full text-black cursor-pointer font-normal text-lg md:text-base`}
-`;
-
-const Linkable = styled.div`
-    &:hover {
-        color: #1c375b;
-        transform: scale(1.05);
-    }
 `;
 
 // Call-to-action button
@@ -85,9 +79,9 @@ const Navbar = () => {
                 {Object.keys(items).map((item) => 
                     <ScrollLink to={items[item]} smooth={true} offset={-200}>
                         <NavbarItem>
-                            <Linkable style={items[item] === activeSection ? {backgroundColor: "pink"} : {}}>
+                            <ScalingLink style={items[item] === activeSection ? {backgroundColor: "pink"} : {}}>
                                 {item}
-                            </Linkable>
+                            </ScalingLink>
                         </NavbarItem>
                     </ScrollLink>)}
                 <Link style={{color: "white", textDecorationLine: "none"}}href="/daftar/">
@@ -104,7 +98,7 @@ const Navbar = () => {
                         onClick={e => setIsShowDropdown(!isShowDropdown)}
                     >
                         <Image 
-                            src="/recycled-icons/hamburger.png"
+                            src="/icons/hamburger.png"
                             width={35}
                             height={35}
                             alt="hamburger"

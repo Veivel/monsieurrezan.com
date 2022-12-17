@@ -1,8 +1,7 @@
 import Section from "../constants/Section";
-import { SlideProps } from "../../types/props"; 
+import { SLIDE_PROPS_TYPE } from "../../types/props"; 
 import tw, { styled } from "twin.macro";
 import { Element } from "react-scroll";
-import { useGlobalStore } from "../utils/state/store";
 import { Swiper, SwiperSlide, useSwiper } from 'swiper/react';
 import { Autoplay, Navigation, Pagination } from "swiper";
 import Image from "next/image";
@@ -33,9 +32,19 @@ const SliderColWrapper = styled(Section.ColWrapper)`
     `}
 `;
 
+const slides:SLIDE_PROPS_TYPE[] = [
+    {imgSrc: "https://placekitten.com/g/201/200", alt: "TODO", slideVisible: true},
+    {imgSrc: "https://placekitten.com/g/200/200", alt: "TODO"},
+    {imgSrc: "https://placekitten.com/g/200/201", alt: "TODO"},
+    {imgSrc: "https://placekitten.com/g/201/201", alt: "TODO"},
+    {imgSrc: "https://placekitten.com/g/202/200", alt: "TODO"},
+    {imgSrc: "https://placekitten.com/g/202/202", alt: "TODO"},
+    {imgSrc: "https://placekitten.com/g/203/200", alt: "TODO"},
+    {imgSrc: "https://via.placeholder.com/200x200.png", alt: "TODO"},
+];
+
 const References = () => {
     const sectionName = "SumberMateri";
-    
     const sliderRef = useRef<any>(null);
 
     const handlePrev = useCallback(() => {
@@ -48,16 +57,6 @@ const References = () => {
       sliderRef.current.swiper.slideNext();
     }, []);
 
-    const slides:SlideProps[] = [
-        {imgSrc: "https://placekitten.com/g/201/200", alt: "TODO", slideVisible: true},
-        {imgSrc: "https://placekitten.com/g/200/200", alt: "TODO"},
-        {imgSrc: "https://placekitten.com/g/200/201", alt: "TODO"},
-        {imgSrc: "https://placekitten.com/g/201/201", alt: "TODO"},
-        {imgSrc: "https://placekitten.com/g/202/200", alt: "TODO"},
-        {imgSrc: "https://placekitten.com/g/202/202", alt: "TODO"},
-        {imgSrc: "https://placekitten.com/g/203/200", alt: "TODO"},
-        {imgSrc: "https://via.placeholder.com/200x200.png", alt: "TODO"},
-    ];
 
     return (
         <Section.SectionWrapper color="#66ccff">
@@ -99,7 +98,7 @@ const References = () => {
                         }}
 
                     >
-                        {slides.map((item:SlideProps, idx) => {
+                        {slides.map((item:SLIDE_PROPS_TYPE, idx) => {
                             return (
                                 <SwiperSlide key={idx} >
                                     <div>

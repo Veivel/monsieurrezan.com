@@ -4,7 +4,7 @@ import Image from "next/image";
 import { Carousel } from "react-responsive-carousel";
 import 'react-responsive-carousel/lib/styles/carousel.min.css'
 import Slide from "../constants/Slide";
-import { SlideProps } from "../../types/props";
+import { SLIDE_PROPS_TYPE } from "../../types/props";
 import useMediaQuery from "../utils/media/media";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Navigation, Pagination } from "swiper";
@@ -26,7 +26,7 @@ const FeaturedContainer = styled.div`
     `}
 `;
 
-const slides:SlideProps[] = [
+const slides:SLIDE_PROPS_TYPE[] = [
     {imgSrc:"https://placekitten.com/1440/640", alt:"alt", legend:"Label ini adalah yang namanya legend! Promosikan produk bla bla bla work in progress, work in progress bla bla."},
     {imgSrc:"https://placekitten.com/g/1440/640", alt:"alt", legend:"Second item"},
     {imgSrc:"https://placekitten.com/1440/641", alt:"alt", legend:"Third item"},
@@ -49,7 +49,7 @@ const Featured = () => {
 
     return (
         <FeaturedContainer>
-            <CircleButton className="text-xl absolute z-[999] left-8 top-24 lg:top-80" onClick={handlePrev}>{"←"}</CircleButton>
+            <CircleButton className="bg-white text-xl absolute z-[98] left-8 top-24 lg:top-80" onClick={handlePrev}>{"←"}</CircleButton>
             <Swiper
                 navigation={false} 
                 pagination={{
@@ -64,7 +64,7 @@ const Featured = () => {
                     disableOnInteraction: false,
                 }}
             >
-                {slides.map((item:SlideProps, idx) => {
+                {slides.map((item:SLIDE_PROPS_TYPE, idx) => {
                     return (
                         // eslint-disable-next-line react/jsx-key
                         <SwiperSlide>
@@ -82,7 +82,7 @@ const Featured = () => {
                     );
                 })}
             </Swiper>
-            <CircleButton className="text-xl absolute z-[999] right-8 top-24 lg:top-80" onClick={handleNext}>{"→"}</CircleButton>
+            <CircleButton className="bg-white text-xl absolute z-[98] right-8 top-24 lg:top-80" onClick={handleNext}>{"→"}</CircleButton>
         </FeaturedContainer>
     );
 }

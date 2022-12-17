@@ -4,7 +4,7 @@ import Image from "next/image";
 import { Carousel } from "react-responsive-carousel";
 import 'react-responsive-carousel/lib/styles/carousel.min.css'
 import Slide from "../constants/Slide";
-import { SlideProps } from "../../types/props";
+import { SLIDE_PROPS_TYPE } from "../../types/props";
 import useMediaQuery from "../utils/media/media";
 
 const FeaturedContainer = styled.div`
@@ -59,7 +59,7 @@ const indicatorRenderer = ((onClickHandler:any, isSelected:any, index:any, label
 const Featured = () => {
     const isDesktop = useMediaQuery('(min-width: 960px)');
 
-    const desktopSlides:SlideProps[] = [
+    const desktopSlides:SLIDE_PROPS_TYPE[] = [
         {imgSrc:"https://placekitten.com/1440/640", alt:"alt", legend:"Label ini adalah yang namanya legend! Promosikan produk bla bla bla work in progress, work in progress bla bla."},
         {imgSrc:"https://placekitten.com/g/1440/640", alt:"alt", legend:"Second item"},
         {imgSrc:"https://placekitten.com/1440/641", alt:"alt", legend:"Third item"},
@@ -77,7 +77,7 @@ const Featured = () => {
                 dynamicHeight={true}
                 renderIndicator={indicatorRenderer}
             >
-                {desktopSlides.map((item:SlideProps, idx) => {
+                {desktopSlides.map((item:SLIDE_PROPS_TYPE, idx) => {
                     return <Slide key={idx} imgSrc={item.imgSrc} alt={item.alt} legend={item.legend} />
                 })}
             </Carousel>

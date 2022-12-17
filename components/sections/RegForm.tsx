@@ -1,64 +1,41 @@
-import React, { ChangeEvent, useState } from "react";
-import tw, { styled } from "twin.macro";
+import React, { ChangeEvent, useRef, useState } from "react";
 import ActionButton from "../constants/buttons/ActionButton";
 import Section from "../constants/Section";
 import useMediaQuery from "../utils/media/media";
-
-const CardHeader = styled.h1`
-    ${tw`font-extrabold text-xl md:text-4xl my-0 [text-align: center]`}
-`;
-const CardSubheader = styled.h1`
-    ${tw`text-base md:text-lg [text-align: center]`}
-`;
-
-const CardContainer = styled.div`
-    ${tw`
-        text-black md:text-gray-800 rounded-3xl shadow-black shadow-xl mx-8 
-        [width: 80%] md:[width: 800px] [min-height: 550px] md:[min-height: 600px] 
-        [background-color:#fafafa] 
-    `}
-`;
-
-const CardContentWrapper = styled.div`
-    ${tw`px-2 md:px-8 py-8`}
-`;
-
-const FormWrapper = styled.form`
-    ${tw`grid grid-cols-1 md:grid-cols-2 place-content-center`}
-`;
-
-const StyledInput = styled.input`
-    ${tw`mb-2 [height: 28px] [width: 100%]`}
-`;
-
-const StyledSelect = styled.select`
-    ${tw`mb-2 [height: 40px] [width: 100%]`}
-`;
-
-const FormItem = styled.div<{span: number}>`
-    grid-column: span ${props => props.span} / span ${props => props.span};
-    ${tw`flex-row mx-10 md:mx-16`}
-`;
-
+import emailjs from '@emailjs/browser';
+import { FormItem, StyledInput, StyledSelect } from "../constants/Form";
+import { CardContainer, CardContentWrapper, CardHeader, CardSubheader } from "../constants/PageCard";
+import { FORM_TYPE } from "../../types/form";
+import axios from "axios";
+import toast, { Toaster } from "react-hot-toast";
+import Reaptcha from 'reaptcha';
 
 const RegForm = () : JSX.Element => {
     const isDesktop = useMediaQuery('(min-width: 960px)');
     const longItemSpan = isDesktop ? 2 : 1;
-    type form = {
-        name: string,
-        phoneNo: string,
-        email: string,
-        courseType: string,
-        courseSchedule: string
-    }
+    const [isVerified, setIsVerified] = useState<boolean>(false);
 
-    const [formData, setFormData] = useState<form>({
+    const [formData, setFormData] = useState<FORM_TYPE>({
         name: "",
         phoneNo: "",
         email: "",
         courseType: "",
         courseSchedule: ""
     });
+
+    // deprecated
+    const sendEmail = () => {
+        axios.post('/api/submit-form',{
+            body: JSON.stringify(formData),
+        })
+        .then(
+            response => console.log(response)
+        )
+    }
+
+    const onVerify = (recaptchaResponse:any) => {
+        setIsVerified(true);
+      };
 
     const handleFormChange = (e:ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         // console.log(e.target.name, e.target.value);
@@ -70,17 +47,58 @@ const RegForm = () : JSX.Element => {
     }
 
     const handleFormSubmit = () => {
-        if (formData.name === "" || formData.email === "" || formData.phoneNo === "") {
-            ;
+        const notif = toast.loading('Loading...');
+        if (!isVerified){
+            toast.dismiss(notif);
+            toast.error("Please complete the ReCAPTCHA challenge.")
+        } else if (formData.name === "" || formData.email === "" || formData.phoneNo === "") {
+            toast.dismiss(notif);
+            toast.error("Data tidak boleh kosong!")
+            
         } else if (!formData.email.includes("@")) {
-            ;
+            toast.dismiss(notif);
+            toast.error("Periksa kembali alamat e-mail anda!")
+
         } else {
-            alert(formData.name);
+            // Send confirmation e-mail to recipient
+            emailjs.send(
+                process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID as string, 
+                process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID as string, 
+                {
+                    'to_email': formData.email,
+                    'data': formData,
+                }, 
+                process.env.NEXT_PUBLIC_EMAILJS_PUB_KEY
+            )
+            .then(result => {
+                // Send second e-mail to admin (hard-coded email address)
+                emailjs.send(
+                    process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID as string,
+                    process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID_ADMIN as string,
+                    {
+                        data: formData,
+                        metadata: {
+                            'date': String(new Date()),
+                            'browser': navigator.userAgent,
+                            'platform': navigator.platform,
+                        }
+                    },
+                    process.env.NEXT_PUBLIC_EMAILJS_PUB_KEY
+                )
+            })
+            .then(result => {
+                toast.dismiss(notif);
+                // toast.success("Anda berhasil melakukan pendaftaran!");
+                window.location.replace("/daftar/success");
+            })
+            .catch(error => {
+                toast.dismiss(notif);
+                toast.error("Periksa kembali data anda!");
+
+                console.log("Error: ", error);
+            })
         }
     }
-
-    //
-
     
     return(
         <CardContainer>
@@ -98,26 +116,28 @@ const RegForm = () : JSX.Element => {
                             onChange={handleFormChange}
                         />
                     </FormItem>
-                    <FormItem span={1}>
-                        <p>Nomor HP</p>
-                        <StyledInput
-                            name="phoneNo"
-                            type="text"
-                            value={formData.phoneNo} 
-                            placeholder="Nomor yang bisa dikontak via WA..."
-                            onChange={handleFormChange}
-                        />
-                    </FormItem>
-                    <FormItem span={1}>
-                        <p>E-mail</p>
-                        <StyledInput
-                            name="email"
-                            type="email"
-                            value={formData.email} 
-                            placeholder="Alamat e-mail anda..." 
-                            onChange={handleFormChange}
-                        />
-                    </FormItem>
+                    <div className="flex flex-row">
+                        <FormItem span={1} className="w-full" style={{'marginRight': '4rem'}}>
+                            <p>No. HP</p>
+                            <StyledInput
+                                name="phoneNo"
+                                type="text"
+                                value={formData.phoneNo} 
+                                placeholder="Nomor anda..."
+                                onChange={handleFormChange}
+                            />
+                        </FormItem>
+                        <FormItem span={1} className="w-full" style={{'marginLeft': 0}}>
+                            <p>E-mail</p>
+                            <StyledInput
+                                name="email"
+                                type="email"
+                                value={formData.email} 
+                                placeholder="Alamat e-mail anda..." 
+                                onChange={handleFormChange}
+                                />
+                        </FormItem>
+                    </div>
                     <FormItem span={longItemSpan}>
                         <p>Pilihan Kursus</p>
                         <StyledSelect
@@ -125,9 +145,10 @@ const RegForm = () : JSX.Element => {
                             value={formData.courseType}
                             onChange={handleFormChange}
                         >
-                            <option>Test</option>
-                            <option>Test2</option>
-                            <option>Test3</option>
+                            <option selected hidden>Pilih salah satu...</option>
+                            <option>Français - A1</option>
+                            <option>Français - A2</option>
+                            <option>Jepang</option>
                         </StyledSelect>
                     </FormItem>
                     <FormItem span={longItemSpan}>
@@ -137,24 +158,29 @@ const RegForm = () : JSX.Element => {
                             value={formData.courseSchedule}
                             onChange={handleFormChange}
                         >
-                            <option>Test</option>
-                            <option>Test!</option>
-                            <option>Test!!</option>
+                            <option selected hidden>Pilih salah satu...</option>
+                            <option>19:30 setiap Selasa dan Kamis</option>
+                            <option>19:30 setiap Senin dan Rabu</option>
+                            <option>10:00 setiap Jumat dan Minggu</option>
                         </StyledSelect>
                     </FormItem>
+                    <Reaptcha 
+                        sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_V2_SITEKEY as string}
+                        onVerify={onVerify} 
+                        className="mx-auto w-fit"
+                    />
                 </form>
                 <Section.RowWrapper>
                     <FormItem span={longItemSpan}>
-                        <ActionButton 
-                            // style={{marginBottom: "36px", marginTop: "18px"}}
-                            onClick={e => handleFormSubmit()}
-                        >
-                            Daftar!
-                        </ActionButton>
+                        { isVerified ?
+                            <ActionButton onClick={e => handleFormSubmit()}>
+                                Daftar!
+                            </ActionButton> 
+                        : <></>}
                     </FormItem>
                 </Section.RowWrapper>
             </CardContentWrapper>
-
+            <Toaster />
         </CardContainer>
     );
 }
