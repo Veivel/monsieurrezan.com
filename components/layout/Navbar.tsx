@@ -12,7 +12,8 @@ import { useGlobalStore } from "../utils/state/store";
 import FancyButton from "../constants/buttons/FancyButton";
 import Drawer from "./Drawer";
 import { useState } from "react";
-import ScalingLink from "../constants/ScalingLink";
+import ScalingLink, { UnsizedScalingLink } from "../constants/ScalingLink";
+import { landingSections } from "../constants/data/sections";
 
 // Top-most navbar container
 const NavbarContainer = styled.nav`
@@ -27,11 +28,11 @@ const NavbarContainer = styled.nav`
 
 // Navbar Items
 const NavItemWrapper = styled.ul`
-    ${tw`w-full h-auto lg:h-full flex flex-row lg:ml-20`}
+    ${tw`w-full h-auto md:h-full flex flex-row md:flex-row-reverse lg:ml-20`}
 `;
 
 const NavbarItem = styled.li`
-    ${tw`md:mr-8 flex items-center justify-center min-h-full text-black cursor-pointer font-normal text-lg md:text-base`}
+    ${tw`md:mr-8 flex items-center justify-center min-h-full text-black cursor-pointer font-normal  md:text-base`}
 `;
 
 // Call-to-action button
@@ -39,26 +40,6 @@ const NavbarButton = styled.button`
     white-space: nowrap;
     ${tw`bg-gray-700 hover:bg-black text-white text-base py-2 px-4 rounded-2xl font-bold`}
 `;
-
-const Filler = styled.div`
-    ${tw`flex ml-auto`}
-`;
-
-const ReverseFlex = styled.div`${tw`flex flex-row-reverse mr-12`}`;
-
-export type SECTION_MAP = {
-    [item: string]: string
-}
-
-const items: SECTION_MAP = {
-    /** [judul]: [link / scroll link] */
-
-    // "En Français": "FirstSection", 
-    "Sumber Materi": "SumberMateri",
-    "Testimoni": "Testimoni", 
-    "Katalog Paket": "Paket", 
-    "Tentang Saya": "TentangSaya"
-};
 
 const Navbar = () => {
     const activeSection = useGlobalStore(state => state.activeSection);
@@ -75,20 +56,20 @@ const Navbar = () => {
             { isDesktop ? 
             <>
                 {/* desktop view */}
-                <Filler />
-                {Object.keys(items).map((item) => 
-                    <ScrollLink to={items[item]} smooth={true} offset={-200}>
-                        <NavbarItem>
-                            <ScalingLink style={items[item] === activeSection ? {backgroundColor: "pink"} : {}}>
-                                {item}
-                            </ScalingLink>
-                        </NavbarItem>
-                    </ScrollLink>)}
-                <Link style={{color: "white", textDecorationLine: "none"}}href="/daftar/">
-                    <FancyButton>
+                <Link className="text-white w-auto" href="/daftar/">
+                    <FancyButton style={{'marginRight': '16px'}}>
                         Daftar Sekarang!
                     </FancyButton>
                 </Link>
+
+                {Object.keys(landingSections).map((item) => 
+                    <ScrollLink to={landingSections[item]} smooth={true} offset={-200}>
+                        <NavbarItem>
+                            <UnsizedScalingLink style={landingSections[item] === activeSection ? {backgroundColor: "pink"} : {}}>
+                                {item}
+                            </UnsizedScalingLink>
+                        </NavbarItem>
+                    </ScrollLink>)}
             </>
             :
             <>
@@ -108,14 +89,11 @@ const Navbar = () => {
             </>
             }
             </NavItemWrapper>
-            {
-            isShowDropdown ?
-            <>
-                {/* mobile drawer that shows only when hamburger is clicked */}
-                <Drawer items={items}/>
-            </>
-            :
-            <></>
+            {isShowDropdown ?
+                <>
+                    {/* mobile drawer that shows only when hamburger is clicked */}
+                    <Drawer />
+                </> : <></>
             }
         </NavbarContainer>
         </div>

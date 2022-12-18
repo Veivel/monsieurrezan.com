@@ -28,13 +28,13 @@ const Packages = () : JSX.Element => {
     return (
         <Section.SectionWrapper color="#66ccff">
             <Section.RowWrapper>
-                <div className="text-center flex flex-col px-48">
+                <div className="text-center flex flex-col md:px-48">
                     <Section.Title>
                         <Element name={sectionName}>
                             Belajar dengan praktek!
                         </Element>
                     </Section.Title>
-                    <Section.Body className="text-center mx-auto">
+                    <Section.Body className="text-center mx-auto px-10 md:px-0">
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
                         sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
                     </Section.Body>

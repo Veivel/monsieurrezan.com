@@ -5,7 +5,7 @@ class Section {
     // 1
     static SectionWrapper = styled.div`
         background-color: ${props => props.color || "yellow"};
-        ${tw`[min-height: 400px] md:[min-height: 600px] md:py-20 md:px-12`}    
+        ${tw`[min-height: 600px] py-8 md:py-20 md:px-12`}    
     `;
 
     // 2
@@ -24,7 +24,7 @@ class Section {
 
     static Title = styled.h1`
         font-family: 'Helvetica', sans-serif;
-        ${tw`font-black [line-height: 4rem] text-4xl md:text-[4rem] text-black mb-2`}
+        ${tw`font-black [line-height: 2rem] md:[line-height: 4rem] text-2xl md:text-[4rem] text-black mb-2`}
     `;
 
     static Subtitle = styled.h3`

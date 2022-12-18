@@ -83,7 +83,7 @@ const References = () => {
                         slidesPerView="auto"
                         breakpoints={{
                             "@0.00": {
-                              slidesPerView: 2,
+                              slidesPerView: 1,
                             },
                             "@0.75": {
                               slidesPerView: 3,
@@ -104,8 +104,8 @@ const References = () => {
                                     <div>
                                         <Image 
                                             src={item.imgSrc}
-                                            width={150}
-                                            height={150}
+                                            width={160}
+                                            height={160}
                                             alt={item.alt}
                                         />
                                         {/* <p className="absolute top-4 left-4 font-bold text-2xl text-white shadow-md">Slide #{idx}</p> */}

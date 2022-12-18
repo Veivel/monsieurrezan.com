@@ -19,10 +19,12 @@ import CircleButton from "../constants/buttons/CircleButton";
 const FeaturedContainer = styled.div`
     ${tw`
         w-screen
-        h-full
+        h-52
+        md:h-full
         justify-center
         items-center
-        xl:mt-10
+        mt-20
+        md:mt-10
     `}
 `;
 
@@ -34,7 +36,7 @@ const slides:SLIDE_PROPS_TYPE[] = [
 ];
 
 const Featured = () => {
-    // const isDesktop = useMediaQuery('(min-width: 960px)');
+    const isDesktop = useMediaQuery('(min-width: 960px)');
     const sliderRef = useRef<any>(null);
 
     const handlePrev = useCallback(() => {
@@ -49,7 +51,12 @@ const Featured = () => {
 
     return (
         <FeaturedContainer>
-            <CircleButton className="bg-white text-xl absolute z-[98] left-8 top-24 lg:top-80" onClick={handlePrev}>{"←"}</CircleButton>
+            { isDesktop ? <CircleButton 
+                className="bg-white text-xl absolute z-[98] left-8 top-60 md:top-24 lg:top-80" 
+                onClick={handlePrev}
+            >
+                {"←"}
+            </CircleButton> : <></>}
             <Swiper
                 navigation={false} 
                 pagination={{
@@ -75,14 +82,19 @@ const Featured = () => {
                                     height={600}
                                     alt={item.alt}
                                 />
-                                <p className="absolute top-24 left-24 font-extrabold text-6xl text-white shadow-sm">Slide #{idx}</p>
-                                <p className="absolute top-40 left-24 font-light text-xl text-white shadow-sm">Masukkan dynamic text.</p>
+                                <p className="absolute top-12 md:top-24 left-4 md:left-24 font-bold md:font-extrabold text-4xl md:text-6xl text-white shadow-sm">Slide #{idx}</p>
+                                <p className="absolute top-[5.5rem] md:top-40 left-4 md:left-24 font-light text-xl text-white shadow-sm">Masukkan dynamic text.</p>
                             </div>
                         </SwiperSlide>
                     );
                 })}
             </Swiper>
-            <CircleButton className="bg-white text-xl absolute z-[98] right-8 top-24 lg:top-80" onClick={handleNext}>{"→"}</CircleButton>
+            { isDesktop ? <CircleButton 
+                className="bg-white text-xl absolute z-[98] right-8 top-60 md:top-24 lg:top-80" 
+                onClick={handleNext}
+            >
+                {"→"}
+            </CircleButton> : <></> }
         </FeaturedContainer>
     );
 }

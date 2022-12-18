@@ -11,11 +11,13 @@ import "swiper/css/thumbs";
 import { useRef, useCallback, useState } from "react";
 import { SLIDE_PROPS_TYPE } from "../../types/props";
 import CircleButton from "../constants/buttons/CircleButton";
+import useMediaQuery from "../utils/media/media";
 
 
 const Documentation = () : JSX.Element => {
     // const [thumbsSwiper, setThumbsSwiper] = useState<any>(null);
     const sliderRef = useRef<any>(null);
+    const isDesktop = useMediaQuery('(min-width: 960px)');
 
     const handlePrev = useCallback(() => {
       if (!sliderRef.current) return;
@@ -28,15 +30,15 @@ const Documentation = () : JSX.Element => {
     }, []);
 
     const slides:SLIDE_PROPS_TYPE[] = [
-        {imgSrc: "https://placekitten.com/g/1500/800", alt: "TODO", slideVisible: true},
-        {imgSrc: "https://placekitten.com/g/1502/798", alt: "TODO"},
-        {imgSrc: "https://placekitten.com/g/1490/801", alt: "TODO"},
-        {imgSrc: "https://placekitten.com/g/1495/798", alt: "TODO"},
-        {imgSrc: "https://via.placeholder.com/1500x800.png", alt: "TODO"},
+        {imgSrc: "https://placekitten.com/g/900/598", alt: "TODO", slideVisible: true},
+        {imgSrc: "https://placekitten.com/g/902/600", alt: "TODO"},
+        {imgSrc: "https://placekitten.com/g/898/602", alt: "TODO"},
+        {imgSrc: "https://placekitten.com/g/898/600", alt: "TODO"},
+        {imgSrc: "https://via.placeholder.com/900x600.png", alt: "TODO"},
     ];
 
     return (
-        <div className="flex flex-row w-screen h-[600px] py-12" style={{'backgroundColor': "#66ccff"}}>
+        <div className="flex flex-row w-screen h-[600px] md:h-[750px] py-12" style={{'backgroundColor': "#66ccff"}}>
             <div className="w-full">
                 <Section.ColWrapper className="text-center">
                     <Section.Title className="">The Journey So Far</Section.Title>
@@ -44,10 +46,10 @@ const Documentation = () : JSX.Element => {
                         Berikut galeri dokumentasi dari kelas kursus Monsieur Rezan.
                     </div>
                     <div className="flex flex-row justify-center my-14">
-                        <CircleButton onClick={handlePrev} className="my-auto">
+                        { isDesktop ? <CircleButton onClick={handlePrev} className="my-auto">
                             {"←"}
-                        </CircleButton>
-                        <div className="w-[600px]">
+                        </CircleButton> : <></> }
+                        <div className="w-[300px] md:w-[600px]">
                             <Swiper
                                 spaceBetween={10}
                                 pagination={true}
@@ -59,11 +61,10 @@ const Documentation = () : JSX.Element => {
                                 {slides.map((item:SLIDE_PROPS_TYPE, idx) => {
                                     return (
                                         <SwiperSlide key={idx} >
-                                            <div>
+                                            <div className="w-[300px] h-[200px] md:w-[600px] md:h-[400px]">
                                                 <Image 
                                                     src={item.imgSrc}
-                                                    width={600}
-                                                    height={400}
+                                                    fill
                                                     alt={item.alt}
                                                 />
                                                 {/* <p className="absolute top-4 left-4 font-bold text-2xl text-white shadow-md">Slide #{idx}</p> */}
@@ -94,10 +95,18 @@ const Documentation = () : JSX.Element => {
                                 })}
                             </Swiper> */}
                         </div>
+                        { isDesktop ? <CircleButton onClick={handleNext} className="my-auto">
+                            {"→"}
+                        </CircleButton> : <></> }
+                    </div>
+                    { !isDesktop ? <div>
+                        <CircleButton onClick={handlePrev} className="my-auto">
+                            {"←"}
+                        </CircleButton> 
                         <CircleButton onClick={handleNext} className="my-auto">
                             {"→"}
                         </CircleButton>
-                    </div>
+                    </div> : <></> }
                 </Section.ColWrapper>
             </div>
         </div>

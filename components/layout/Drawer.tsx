@@ -3,7 +3,8 @@ import styled from "styled-components";
 import tw from "twin.macro";
 import { Link as ScrollLink } from "react-scroll";
 import Link from "next/link";
-import { SECTION_MAP } from "./Navbar";
+import { landingSections } from "../constants/data/sections";
+import { pages } from "../constants/data/pages";
 
 const MenuWrapper = styled.div`
     ${tw`
@@ -18,20 +19,30 @@ const MenuContent = styled.div`
   `}
 `;
 
-const Drawer = ({items}:{items:SECTION_MAP}) : JSX.Element => { // TODO
+const Drawer = () : JSX.Element => { // TODO
     return(
         <MenuWrapper>
           <MenuContent>
-            {Object.keys(items).map((key, index) => (
+            {Object.keys(landingSections).map((key, index) => (
               <ScrollLink
                 key={index}
-                // href={items[key]}
-                to={items[key]}
+                to={landingSections[key]}
               >
                 <div className="z-40 text-black font-semibold text-xl my-6">
                   {key}
                 </div>
               </ScrollLink>
+            ))}
+
+            {Object.keys(pages).map((key, index) => (
+              <Link
+                key={index}
+                href={pages[key]}
+              >
+                <div className="z-40 text-blue font-semibold text-xl my-6">
+                  {key}
+                </div>
+              </Link>
             ))}
           </MenuContent>
       </MenuWrapper>

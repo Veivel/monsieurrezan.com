@@ -50,14 +50,20 @@ const RegForm = () : JSX.Element => {
         const notif = toast.loading('Loading...');
         if (!isVerified){
             toast.dismiss(notif);
-            toast.error("Please complete the ReCAPTCHA challenge.")
+            toast.error("Mohon lengkapi box ReCAPTCHA.");
+
         } else if (formData.name === "" || formData.email === "" || formData.phoneNo === "") {
             toast.dismiss(notif);
-            toast.error("Data tidak boleh kosong!")
+            toast.error("Data tidak boleh kosong.");
             
+        } else if (formData.courseType === "Pilih salah satu..." || formData.courseSchedule === "Pilih salah satu..." 
+                || formData.courseType === "" || formData.courseSchedule === "") {
+            toast.dismiss(notif);
+            toast.error("Data tidak boleh kosong.");
+
         } else if (!formData.email.includes("@")) {
             toast.dismiss(notif);
-            toast.error("Periksa kembali alamat e-mail anda!")
+            toast.error("Periksa kembali alamat e-mail anda.");
 
         } else {
             // Send confirmation e-mail to recipient
@@ -67,6 +73,7 @@ const RegForm = () : JSX.Element => {
                 {
                     'to_email': formData.email,
                     'data': formData,
+                    'site_url': window.location.origin.toString(),
                 }, 
                 process.env.NEXT_PUBLIC_EMAILJS_PUB_KEY
             )
@@ -81,7 +88,8 @@ const RegForm = () : JSX.Element => {
                             'date': String(new Date()),
                             'browser': navigator.userAgent,
                             'platform': navigator.platform,
-                        }
+                        },
+                        'site_url': window.location.origin.toString(),
                     },
                     process.env.NEXT_PUBLIC_EMAILJS_PUB_KEY
                 )
@@ -104,7 +112,7 @@ const RegForm = () : JSX.Element => {
         <CardContainer>
             <CardContentWrapper>
                 <CardHeader>Form Registrasi</CardHeader>
-                <CardSubheader>Setelah registrasi, kami akan mengirm email konfirmasi ke inbox kamu!</CardSubheader>
+                <p className="text-center mb-4 md:mb-8 px-6 md:px-0 text-sm md:text-lg">Setelah registrasi, kami akan mengirm email konfirmasi ke inbox kamu!</p>
                 <form>
                     <FormItem span={longItemSpan}>
                         <p>Nama</p>
@@ -116,26 +124,30 @@ const RegForm = () : JSX.Element => {
                             onChange={handleFormChange}
                         />
                     </FormItem>
-                    <div className="flex flex-row">
-                        <FormItem span={1} className="w-full" style={{'marginRight': '4rem'}}>
-                            <p>No. HP</p>
-                            <StyledInput
-                                name="phoneNo"
-                                type="text"
-                                value={formData.phoneNo} 
-                                placeholder="Nomor anda..."
-                                onChange={handleFormChange}
-                            />
-                        </FormItem>
-                        <FormItem span={1} className="w-full" style={{'marginLeft': 0}}>
-                            <p>E-mail</p>
-                            <StyledInput
-                                name="email"
-                                type="email"
-                                value={formData.email} 
-                                placeholder="Alamat e-mail anda..." 
-                                onChange={handleFormChange}
+                    <div className="">
+                        <FormItem span={longItemSpan} className="w-full md:flex md:flex-row">
+                            <div className="md:w-[50%] pr-20 md:pr-36">
+                                <p>No. HP</p>
+                                <StyledInput
+                                    name="phoneNo"
+                                    type="text"
+                                    value={formData.phoneNo} 
+                                    placeholder="Nomor anda..."
+                                    onChange={handleFormChange}
+
                                 />
+                            </div>
+                            <div className="md:w-[50%] pr-20 md:pr-32">
+                                <p>E-mail</p>
+                                <StyledInput
+                                    name="email"
+                                    type="email"
+                                    value={formData.email} 
+                                    placeholder="Alamat e-mail anda..." 
+                                    onChange={handleFormChange}
+
+                                    />
+                            </div>
                         </FormItem>
                     </div>
                     <FormItem span={longItemSpan}>

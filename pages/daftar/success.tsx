@@ -21,9 +21,9 @@ export default function Success() {
             </Head>
             <Section.SectionWrapper color='white'>
                 <Section.RowWrapper style={{marginTop: "64px"}}>
-                    <CardContainer style={{'backgroundColor': 'whitesmoke'}} className='flex flex-row justify-center'>
+                    <CardContainer style={{'backgroundColor': 'whitesmoke'}} className='flex flex-row justify-center px-4'>
                         <CardContentWrapper className='flex flex-col justify-center text-center'>
-                            <div className='relative w-[250px] h-[250px] mx-auto'>
+                            <div className='relative w-[125px] md:w-[250px] h-[125px] md:h-[250px] mx-auto'>
                                 <Image 
                                     src="/icons/betis-checkmark.png"
                                     alt="checkmark"
@@ -31,10 +31,10 @@ export default function Success() {
                                 />
                             </div>
                             <div className='my-5'>
-                                <h1 className='text-2xl font-bold'>Terima kasih sudah mendaftar!</h1>
-                                <p>Silahkan memerika inbox e-mail anda.</p>
+                                <h1 className='text-xl md:text-2xl font-bold'>Terima kasih sudah mendaftar!</h1>
+                                <p className='text-sm md:text-base'>Silahkan memerika inbox e-mail anda.</p>
                             </div>
-                            <ActionButton onClick={e => window.location.replace("/")}>Kembali</ActionButton>
+                            <ActionButton onClick={e => window.location.replace("/")} className="mx-8 md:mx-2">Kembali</ActionButton>
                         </CardContentWrapper>
                     </CardContainer>    
                 </Section.RowWrapper>
