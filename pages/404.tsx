@@ -1,6 +1,6 @@
 import Head from "next/head";
 import Link from "next/link";
-import FancyButton from "../components/constants/FancyButton";
+import FancyButton from "../components/constants/buttons/FancyButton";
 import Section from "../components/constants/Section";
 
 const Custom404 = () : JSX.Element => {
@@ -16,7 +16,7 @@ const Custom404 = () : JSX.Element => {
                 <Section.RowWrapper>
                     <Section.ColWrapper style={{textAlign: "center"}}>
                         <Section.Title>OOPS...</Section.Title>
-                        <h3>404: Halaman tidak ditemukan.</h3>
+                        <h3 className="mb-8"><b>404: Halaman tidak ditemukan.</b></h3>
                         <Link href="/"><FancyButton style={{marginRight: "auto"}}>Kembali</FancyButton></Link>
                     </Section.ColWrapper>
                 </Section.RowWrapper>

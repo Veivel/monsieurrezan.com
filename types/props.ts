@@ -3,7 +3,7 @@
  * swiffy slider (w/ slideVisible) <-- the morer awesomer carousel package <3
  * */
 
-export type SlideProps = {
+export type SLIDE_PROPS_TYPE = {
     imgSrc: string, 
     alt: string, 
     legend?: string,
@@ -11,7 +11,7 @@ export type SlideProps = {
 };
 
 /** Package Props for Packages' Tall Cards */
-export type PackageProps = {
+export type PACKAGE_PROPS_TYPE = {
     imgSrc: string,
     title: string,
     description: string,

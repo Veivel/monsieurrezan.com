@@ -1,8 +1,8 @@
 import tw, { styled } from "twin.macro";
 import Image from "next/image";
-import { PackageProps } from "../../types/props";
+import { PACKAGE_PROPS_TYPE } from "../../types/props";
 import Link from "next/link";
-import ActionButton from "./ActionButton";
+import ActionButton from "./buttons/ActionButton";
 
 const CardHeader = styled.h1`
     ${tw`font-extrabold text-2xl md:text-4xl`}
@@ -19,7 +19,7 @@ const CardContainer = styled.div`
         shadow-gray-500 shadow-lg text-black md:text-gray-800`
     }
     @media only screen and (min-width: ${768}px) {
-        width: ${100/(n)}%;
+        width: 300px;
     }
     transition: transform 0.15s;
     &:hover {
@@ -35,15 +35,15 @@ const CardContentWrapper = styled.div`
 `;
 
 const CardImageWrapper = styled.div`
-    ${tw`overflow-clip [border-top-right-radius: 5%] [border-top-left-radius: 5%]`}
+    ${tw`overflow-clip w-[300px] h-[260px] [border-top-right-radius: 5%] [border-top-left-radius: 5%]`}
 `;
 
 const CardBody = styled.p`
     ${tw`font-light text-base md:text-base text-justify mt-5`}
 `;
 
-const TallCard = (props: PackageProps) : JSX.Element => { 
-    const [width, height] = [400, 250];
+const TallCard = (props: PACKAGE_PROPS_TYPE) : JSX.Element => { 
+    const [width, height] = [300, 260];
 
     return (
         <CardContainer>
@@ -62,7 +62,7 @@ const TallCard = (props: PackageProps) : JSX.Element => {
                 <CardBody>
                     {props.description}
                 </CardBody>
-                
+                <br />
                 <Link href="/about"><ActionButton>Daftar untuk {props.title}</ActionButton></Link>
             </CardContentWrapper>
         </CardContainer>
