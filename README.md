@@ -6,20 +6,17 @@
 
 ## About
 
-Monsieur Rezan is a french teacher and education content creator from Indonesia. For his personal branding, I was asked to build a professional landing website with three main technical features in mind:
+Monsieur Rezan is a french teacher and education content creator from Indonesia. For his professional branding, I was asked to build a landing website with three main technical features in mind:
 1. Search Engine Optimization (SEO)
 2. Mobile Responsiveness
 3. Site Analytics
 4. A form with automated e-mail confirmation
 
-I also took the liberty of creating a headless CMS. See (https://github.com/Veivel/monsieurrezan-backend)[https://github.com/Veivel/monsieurrezan-backend].
+I also took the liberty of creating a headless CMS. See ![https://github.com/Veivel/monsieurrezan-backend](https://github.com/Veivel/monsieurrezan-backend).
 
 ## Development Process & Tech
 
-This is my first project using TypeScript, and first time utilizing Tailwind properly. It's also the first (hopefully of many!) freelance project I've taken for a client. To start, I had two separate discussions with the client: one as a high-level overview, to understand his motivation and what he really wants out of this; the second to narrow down the details of each page and component. 
-
-After looking at a few reference sites, I started by shaping the flexboxes of the different sections (outline).
-
 ## What's next?
-1. integrate with cms
-2. look at other options for email
+1. continue cms integration
+1. try using strapi email api
+2. seo & analytics (final)
