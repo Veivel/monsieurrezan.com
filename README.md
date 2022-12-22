@@ -12,11 +12,14 @@ Monsieur Rezan is a french teacher and education content creator from Indonesia.
 3. Site Analytics
 4. A form with automated e-mail confirmation
 
-## Tech
+I also took the liberty of creating a headless CMS. See (https://github.com/Veivel/monsieurrezan-backend)[https://github.com/Veivel/monsieurrezan-backend].
 
-## Development Process
+## Development Process & Tech
+
+This is my first project using TypeScript, and first time utilizing Tailwind properly. It's also the first (hopefully of many!) freelance project I've taken for a client. To start, I had two separate discussions with the client: one as a high-level overview, to understand his motivation and what he really wants out of this; the second to narrow down the details of each page and component. 
+
+After looking at a few reference sites, I started by shaping the flexboxes of the different sections (outline).
 
 ## What's next?
-1. other landing components and footer!
-2. cms (strapi or enonic)
-3. look at other options for email
+1. integrate with cms
+2. look at other options for email

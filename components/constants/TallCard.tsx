@@ -11,12 +11,12 @@ const CardHeader = styled.h1`
 const n = 4;
 const CardContainer = styled.div`
     ${tw`
-        m-5 
-        [max-width: 400px]
+        mx-auto my-5 md:m-5
+        w-[300px]
         [border-radius: 5%] 
         [height: 550px] md:[height: 600px] 
         [background-color:#fafafa] 
-        shadow-gray-500 shadow-lg text-black md:text-gray-800`
+        shadow-red-900 shadow-lg text-black md:text-gray-800`
     }
     @media only screen and (min-width: ${768}px) {
         width: 300px;
@@ -35,7 +35,7 @@ const CardContentWrapper = styled.div`
 `;
 
 const CardImageWrapper = styled.div`
-    ${tw`overflow-clip w-[300px] h-[260px] [border-top-right-radius: 5%] [border-top-left-radius: 5%]`}
+    ${tw`overflow-clip w-fit h-[260px] [border-top-right-radius: 5%] [border-top-left-radius: 5%]`}
 `;
 
 const CardBody = styled.p`

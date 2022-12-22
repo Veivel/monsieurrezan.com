@@ -1,5 +1,5 @@
 import tw, { styled } from "twin.macro";
-import Branding, { BrandingTitleWhite } from "../constants/Branding";
+import Branding, { BrandingTitle, BrandingTitleWhite } from "../constants/Branding";
 import useMediaQuery from "../utils/media/media";
 import Link from "next/link";
 import ScalingLink, { UnsizedScalingLink } from "../constants/ScalingLink";
@@ -23,7 +23,7 @@ const FooterRow = styled.div`
 
 const FooterCol = styled.div`
     ${tw`
-        flex flex-col text-center mx-auto
+        flex flex-col text-center mx-auto my-6
     `}
 `;
 
@@ -36,7 +36,7 @@ const FooterGridHeading = styled.p`
 `;
 
 const FooterGridItem = styled.p`
-    ${tw`py-2 m-1 col-span-1 row-span-1`}
+    ${tw`md:py-2 md:m-1 col-span-1 row-span-1`}
 `;
 
 const FooterLink = styled.a`
@@ -51,8 +51,10 @@ const Footer = () => {
         <>
             <FooterContainer>
                 <FooterCol>
-                    <BrandingTitleWhite>Monsieur Rezan</BrandingTitleWhite>
-                    <FooterGridItem>Temukan kami di:</FooterGridItem>
+                    <Link href="/" style={{textDecorationLine: "none"}}>
+                        <Branding theme="dark"/>
+                    </Link>
+                    <FooterGridItem className="mb-4">Temukan kami di:</FooterGridItem>
                     <FooterRow>
                     {/* <div className="
                             flex flex-row justify-center py-4
@@ -102,23 +104,26 @@ const Footer = () => {
                 <FooterCol>
                     <FooterGrid>
                         <FooterGridHeading>Site Links</FooterGridHeading>
-                        <FooterGridItem>Home</FooterGridItem>
-                        <FooterGridItem>Pendaftaran</FooterGridItem>
+                        <Link href="/"><FooterGridItem>Home</FooterGridItem></Link>
+                        <Link href="/daftar/"><FooterGridItem>Pendaftaran</FooterGridItem></Link>
                     </FooterGrid>
                 </FooterCol>
             </FooterContainer>
-            <FooterRow 
-                className="text-white py-3 gap-12 text-sm"
+            <div 
+                className="
+                text-center justify-center gap-x-4
+                text-white py-2 md:py-3 md:gap-12 text-sm flex flex-col md:flex-row
+                "
                 style={{'backgroundColor': 'rgb(18, 35, 40)'}}
             >
                 <p>
                     © Monsieur Rezan 2022
                 </p>
-                <p>|</p>
+                { isDesktop ? <p>|</p> : <></>}
                 <p>
                     Website ini dibangun oleh <FooterLink href="https://github.com/veivel">Veivel</FooterLink>.
                 </p>
-            </FooterRow>
+            </div>
         </>
     );
 }

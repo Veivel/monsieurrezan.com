@@ -30,7 +30,7 @@ const Documentation = () : JSX.Element => {
     }, []);
 
     const slides:SLIDE_PROPS_TYPE[] = [
-        {imgSrc: "https://placekitten.com/g/900/598", alt: "TODO", slideVisible: true},
+        {imgSrc: "https://placekitten.com/g/900/598", alt: "TODO"},
         {imgSrc: "https://placekitten.com/g/902/600", alt: "TODO"},
         {imgSrc: "https://placekitten.com/g/898/602", alt: "TODO"},
         {imgSrc: "https://placekitten.com/g/898/600", alt: "TODO"},
@@ -38,13 +38,13 @@ const Documentation = () : JSX.Element => {
     ];
 
     return (
-        <div className="flex flex-row w-screen h-[600px] md:h-[750px] py-12" style={{'backgroundColor': "#66ccff"}}>
+        <div className="flex flex-row w-screen h-[600px] md:h-[750px] py-12 bg-2-light-blue text-white">
             <div className="w-full">
                 <Section.ColWrapper className="text-center">
                     <Section.Title className="">The Journey So Far</Section.Title>
-                    <div>
+                    <p className="text-center text-lg font-extralight">
                         Berikut galeri dokumentasi dari kelas kursus Monsieur Rezan.
-                    </div>
+                    </p>
                     <div className="flex flex-row justify-center my-14">
                         { isDesktop ? <CircleButton onClick={handlePrev} className="my-auto">
                             {"←"}
@@ -73,27 +73,6 @@ const Documentation = () : JSX.Element => {
                                     );
                                 })}
                             </Swiper>
-                            {/* <Swiper
-                                onSwiper={setThumbsSwiper}
-                                slidesPerView={4}
-                                freeMode={true}
-                                watchSlidesProgress={true}
-                                modules={[FreeMode, Navigation, Thumbs]}
-                                className="thumbsSwiper"
-                            >
-                                {slides.map((item:SLIDE_PROPS_TYPE, idx) => {
-                                    return (
-                                        <SwiperSlide key={idx} >
-                                            <Image 
-                                                src={item.imgSrc}
-                                                width={150}
-                                                height={100}
-                                                alt={item.alt}
-                                            />
-                                        </SwiperSlide>
-                                    );
-                                })}
-                            </Swiper> */}
                         </div>
                         { isDesktop ? <CircleButton onClick={handleNext} className="my-auto">
                             {"→"}

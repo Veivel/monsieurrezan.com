@@ -27,6 +27,10 @@ Follow everything step-by-step. (This guide was written on 23/11/22, the repo's 
 
 NOTE: Using Babel means you can't use next/fonts.
 
+6. New note
+
+Styled components and twin macro sucks.
+
 ## Other Dev Configurations
 
 1. React Responsive Carousel needs its css file to function properly.
