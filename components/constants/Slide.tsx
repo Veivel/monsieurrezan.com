@@ -10,7 +10,7 @@ const SlideContainer = styled.div`
     ${tw`relative`}`
 ;
 
-const Slide = ({imgSrc, alt, legend}:SLIDE_PROPS_TYPE) => {
+const Slide = ({imgSrc, alt}:SLIDE_PROPS_TYPE) => {
     return(
         <SlideContainer>
             <Image // this works, even tho react-responsive-carousel supposedly doesnt recognize next/images.

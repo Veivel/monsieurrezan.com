@@ -60,10 +60,10 @@ const Featured = () => {
     const isDesktop = useMediaQuery('(min-width: 960px)');
 
     const desktopSlides:SLIDE_PROPS_TYPE[] = [
-        {imgSrc:"https://placekitten.com/1440/640", alt:"alt", legend:"Label ini adalah yang namanya legend! Promosikan produk bla bla bla work in progress, work in progress bla bla."},
-        {imgSrc:"https://placekitten.com/g/1440/640", alt:"alt", legend:"Second item"},
-        {imgSrc:"https://placekitten.com/1440/641", alt:"alt", legend:"Third item"},
-        {imgSrc:"https://via.placeholder.com/1440x640.png", alt:"alt", legend:"Fourth item"},
+        {imgSrc:"https://placekitten.com/1440/640", alt:"alt"},
+        {imgSrc:"https://placekitten.com/g/1440/640", alt:"alt"},
+        {imgSrc:"https://placekitten.com/1440/641", alt:"alt"},
+        {imgSrc:"https://via.placeholder.com/1440x640.png", alt:"alt"},
     ];
 
     return (
@@ -78,7 +78,7 @@ const Featured = () => {
                 renderIndicator={indicatorRenderer}
             >
                 {desktopSlides.map((item:SLIDE_PROPS_TYPE, idx) => {
-                    return <Slide key={idx} imgSrc={item.imgSrc} alt={item.alt} legend={item.legend} />
+                    return <Slide key={idx} imgSrc={item.imgSrc} alt={item.alt} />
                 })}
             </Carousel>
         </FeaturedContainer>

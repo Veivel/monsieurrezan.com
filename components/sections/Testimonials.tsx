@@ -1,7 +1,7 @@
 import Section from "../constants/Section";
 import Image from "next/image";
 import useMediaQuery from "../utils/media/media";
-import { REVIEW_SLIDE_PROPS_TYPE, SLIDE_PROPS_TYPE } from "../../types/props";
+import { REVIEW_SLIDE_PROPS_TYPE } from "../../types/props";
 import tw, { styled } from "twin.macro";
 import { Element } from "react-scroll";
 

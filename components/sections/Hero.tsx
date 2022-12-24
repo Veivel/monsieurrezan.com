@@ -4,7 +4,7 @@ import Image from "next/image";
 import { Carousel } from "react-responsive-carousel";
 import 'react-responsive-carousel/lib/styles/carousel.min.css'
 import Slide from "../constants/Slide";
-import { CAPTIONED_SLIDE_PROPS_TYPE, SLIDE_PROPS_TYPE } from "../../types/props";
+import { CAPTIONED_SLIDE_PROPS_TYPE } from "../../types/props";
 import useMediaQuery from "../utils/media/media";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Navigation, Pagination } from "swiper";
