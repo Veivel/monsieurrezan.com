@@ -6,17 +6,17 @@
 
 ## About
 
-Monsieur Rezan is a french teacher and education content creator from Indonesia. For his personal branding, I was asked to build a professional landing website with three main technical features in mind:
+Monsieur Rezan is a french teacher and education content creator from Indonesia. For his professional branding, I was asked to build a landing website with three main technical features in mind:
 1. Search Engine Optimization (SEO)
 2. Mobile Responsiveness
 3. Site Analytics
 4. A form with automated e-mail confirmation
 
-## Tech
+I also took the liberty of creating a headless CMS. See ![https://github.com/Veivel/monsieurrezan-backend](https://github.com/Veivel/monsieurrezan-backend).
 
-## Development Process
+## Development Process & Tech
 
 ## What's next?
-1. other landing components and footer!
-2. cms (strapi or enonic)
-3. look at other options for email
+1. continue cms integration
+1. try using strapi email api
+2. seo & analytics (final)

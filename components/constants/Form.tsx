@@ -6,12 +6,12 @@ export const FormWrapper = styled.form`
 
 export const StyledInput = styled.input`
     width: ${props => props.width || "100%"};
-    ${tw`mb-2 [height: 40px] rounded-full px-2 border border-amber-500`}
+    ${tw`mb-2 [height: 40px] rounded-full px-2 border border-gray-400`}
 `;
 
 export const StyledSelect = styled.select`
     ${tw`mb-2 [height: 40px] [width: 100%] rounded-full px-2
-    border border-amber-500`}
+    border border-gray-400`}
 `;
 
 export const FormItem = styled.div<{span: number}>`

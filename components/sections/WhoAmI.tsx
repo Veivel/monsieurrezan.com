@@ -11,7 +11,7 @@ const WhoAmI = () : JSX.Element => {
     const SectionName = "TentangSaya"
 
     return(
-        <Section.SectionWrapper color="white">
+        <Section.SectionWrapper className="bg-5-dark-red text-3-tinted-white">
             <Section.RowWrapper>
                 <Section.ColWrapper>
                     <Section.Title style={{textAlign: "center"}}>
@@ -36,7 +36,7 @@ const WhoAmI = () : JSX.Element => {
                                 Duis aute irure dolor in 
                                 reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur:
                             </Section.Body>
-                                <ul className="font-light text-base md:text-lg text-gray-900 text-justify my-4">
+                                <ul className="font-light text-base md:text-lg text-justify my-4">
                                     <li>1. Uno dos tres</li>
                                     <li>2. Satu dua tiga</li>
                                     <li>3. Empat lima</li>

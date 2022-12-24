@@ -4,8 +4,7 @@ import tw, { styled } from "twin.macro";
 class Section {
     // 1
     static SectionWrapper = styled.div`
-        background-color: ${props => props.color || "yellow"};
-        ${tw`[min-height: 600px] py-8 md:py-20 md:px-12`}    
+    ${tw`[min-height: 600px] py-8 md:py-20 md:px-12`}    
     `;
 
     // 2
@@ -24,15 +23,15 @@ class Section {
 
     static Title = styled.h1`
         font-family: 'Helvetica', sans-serif;
-        ${tw`font-black [line-height: 2rem] md:[line-height: 4rem] text-2xl md:text-[4rem] text-black mb-2`}
+        ${tw`font-black [line-height: 2rem] md:[line-height: 4rem] text-2xl md:text-[4rem] mb-2`}
     `;
 
     static Subtitle = styled.h3`
-        ${tw`uppercase font-semibold text-sm md:text-base text-slate-700 mt-2`}
+        ${tw`uppercase font-semibold text-sm md:text-base mt-2`}
     `;
 
     static Body = styled.p`
-        ${tw`font-light text-base md:text-lg text-gray-900 text-justify my-4`}
+        ${tw`font-light text-base md:text-lg text-justify my-4`}
     `;
 
     static Grid = styled.div`

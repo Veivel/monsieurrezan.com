@@ -26,7 +26,7 @@ const Packages = () : JSX.Element => {
     ];
 
     return (
-        <Section.SectionWrapper color="#66ccff">
+        <Section.SectionWrapper className="bg-4-light-red text-3-tinted-white">
             <Section.RowWrapper>
                 <div className="text-center flex flex-col md:px-48">
                     <Section.Title>

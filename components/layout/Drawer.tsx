@@ -7,6 +7,14 @@ import { landingSections } from "../constants/data/sections";
 import { pages } from "../constants/data/pages";
 
 const MenuWrapper = styled.div`
+    @keyframes slideIn {
+      from {left: -15rem;}
+      to {left: 0rem;}
+    }
+
+    animation-name: slideIn;
+    animation-duration: 0.3s;
+    animation-timing-function: ease-out;
     ${tw`
     absolute left-0 top-0 [z-index: 100] flex flex-col z-50 
     w-[60%] h-screen

@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import Featured from '../components/sections/Hero';
+import Hero from '../components/sections/Hero';
 import styled from 'styled-components';
 import tw from 'twin.macro';
 import Script from 'next/script';
@@ -13,6 +13,7 @@ import WhoAmI from '../components/sections/WhoAmI';
 import Socials from '../components/sections/Socials';
 import CallToAction from '../components/sections/CallToAction';
 import Documentation from '../components/sections/Documentation';
+import { AxiosProvider } from '../components/utils/context/AxiosProvider';
 
 const LandingContainer = styled.div` 
     ${tw`flex flex-col w-full h-full overflow-hidden`}
@@ -34,33 +35,33 @@ export default function Home() {
             </Head>
             <Script src="https://cdn.jsdelivr.net/npm/swiffy-slider@1.6.0/dist/js/swiffy-slider.min.js" defer/>
 
-            <Suspense>
-                <Featured />
-            </Suspense>
-            <Suspense>
-                <About />
-            </Suspense>
-            <Suspense>
-                <References />
-            </Suspense>
-            <Suspense>
-                <Testimonials />
-            </Suspense>
-            <Suspense>
-                <Packages />
-            </Suspense>
-            <Suspense>
-                <WhoAmI />
-            </Suspense>
-            <Suspense>
-                <Socials />
-            </Suspense>
-            <Suspense>
-                <Documentation />
-            </Suspense>
-            <Suspense>
-                <CallToAction />
-            </Suspense>
+            <AxiosProvider>
+                <Hero />
+                <Suspense>
+                    <About />
+                </Suspense>
+                <Suspense>
+                    <References />
+                </Suspense>
+                <Suspense>
+                    <Testimonials />
+                </Suspense>
+                <Suspense>
+                    <Packages />
+                </Suspense>
+                <Suspense>
+                    <WhoAmI />
+                </Suspense>
+                <Suspense>
+                    <Socials />
+                </Suspense>
+                <Suspense>
+                    <Documentation />
+                </Suspense>
+                <Suspense>
+                    <CallToAction />
+                </Suspense>
+            </AxiosProvider>
 
         </LandingContainer>
     );

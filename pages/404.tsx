@@ -11,13 +11,15 @@ const Custom404 = () : JSX.Element => {
                 <meta name="description" content="Website dari guru bahasa perancis Monsieur Rezan" />
                 <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
             </Head>
-            <div color="white" style={{height: "150px"}}></div>
-            <Section.SectionWrapper color="white">
+            <Section.SectionWrapper className="dual-bg">
+                <div style={{height: "100px"}}></div>
                 <Section.RowWrapper>
-                    <Section.ColWrapper style={{textAlign: "center"}}>
+                    <Section.ColWrapper style={{textAlign: "center", backgroundColor: "white"}} className="py-10 rounded-2xl">
                         <Section.Title>OOPS...</Section.Title>
-                        <h3 className="mb-8"><b>404: Halaman tidak ditemukan.</b></h3>
-                        <Link href="/"><FancyButton style={{marginRight: "auto"}}>Kembali</FancyButton></Link>
+                        <h3 className="mb-8 text-xl"><b>Halaman tidak ditemukan.</b></h3>
+                        <Link href="/">
+                            <FancyButton style={{marginRight: "auto"}}>Kembali</FancyButton>
+                        </Link>
                     </Section.ColWrapper>
                 </Section.RowWrapper>
             </Section.SectionWrapper>

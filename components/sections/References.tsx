@@ -10,8 +10,9 @@ import Image from "next/image";
 import 'swiper/css';
 import "swiper/css/pagination";
 import "swiper/css/navigation";
-import { useRef, useCallback } from "react";
+import { useRef, useCallback, useState, useEffect } from "react";
 import CircleButton from "../constants/buttons/CircleButton";
+import axios from "axios";
 
 const RowWrapper1 = styled(Section.RowWrapper)`
     width: 65%;
@@ -32,20 +33,18 @@ const SliderColWrapper = styled(Section.ColWrapper)`
     `}
 `;
 
-const slides:SLIDE_PROPS_TYPE[] = [
-    {imgSrc: "https://placekitten.com/g/201/200", alt: "TODO", slideVisible: true},
-    {imgSrc: "https://placekitten.com/g/200/200", alt: "TODO"},
-    {imgSrc: "https://placekitten.com/g/200/201", alt: "TODO"},
-    {imgSrc: "https://placekitten.com/g/201/201", alt: "TODO"},
-    {imgSrc: "https://placekitten.com/g/202/200", alt: "TODO"},
-    {imgSrc: "https://placekitten.com/g/202/202", alt: "TODO"},
-    {imgSrc: "https://placekitten.com/g/203/200", alt: "TODO"},
+const initialSlides:SLIDE_PROPS_TYPE[] = [
     {imgSrc: "https://via.placeholder.com/200x200.png", alt: "TODO"},
+    {imgSrc: "https://via.placeholder.com/200x200.png", alt: "TODO"},
+    {imgSrc: "https://via.placeholder.com/200x200.png", alt: "TODO"},
+    {imgSrc: "https://via.placeholder.com/200x200.png", alt: "TODO"},
+    {imgSrc: "https://via.placeholder.com/300x300.png", alt: "TODO"},
 ];
 
 const References = () => {
     const sectionName = "SumberMateri";
     const sliderRef = useRef<any>(null);
+    const [slides, setSlides] = useState<SLIDE_PROPS_TYPE[]>(initialSlides);
 
     const handlePrev = useCallback(() => {
       if (!sliderRef.current) return;
@@ -57,9 +56,35 @@ const References = () => {
       sliderRef.current.swiper.slideNext();
     }, []);
 
+    const appendToSlides = (data: any[]): void => {
+        data.forEach((value, idx) => {
+            setSlides(current => [...current, {
+                'imgSrc': value.attributes.url, 
+                'alt': value.attributes.alt, 
+                'href': value.attributes.externalLink
+            }]);
+        });
+    }
+    
+    const fetchSlides = (): void => {
+        axios
+            .get(`/api/landing-material-sources`)
+            .then(response => {
+                appendToSlides(response.data.data);
+                // console.log(response.data.data);
+            })
+            .catch(error => {
+                console.log("ERROR: ", error);
+            });
+    }
+
+    useEffect(() => {
+        fetchSlides();
+    }, []);
+
 
     return (
-        <Section.SectionWrapper color="#66ccff">
+        <Section.SectionWrapper className="bg-2-light-blue text-3-tinted-white">
             <RowWrapper1>
                     <Title1>
                         <Element name={sectionName}>
