@@ -23,7 +23,6 @@ const FancyButton = styled.button`
         box-shadow: #422800 2px 2px 0 0;
         transform: translate(2px, 2px);
     }
-    ${tw`mr-20 ml-auto`}
 `;
 
 export default FancyButton;

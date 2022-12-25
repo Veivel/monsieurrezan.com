@@ -1,36 +1,80 @@
-import React, { ChangeEvent, useRef, useState } from "react";
+import React, { ChangeEvent, useEffect, useRef, useState } from "react";
 import ActionButton from "../constants/buttons/ActionButton";
 import Section from "../constants/Section";
 import useMediaQuery from "../utils/media/media";
 import emailjs from '@emailjs/browser';
 import { FormItem, StyledInput, StyledSelect } from "../constants/Form";
 import { CardContainer, CardContentWrapper, CardHeader, CardSubheader } from "../constants/PageCard";
-import { FORM_TYPE } from "../../types/form";
+import { FORM_OPTIONS_TYPE, FORM_TYPE } from "../../types/form";
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
 import Reaptcha from 'reaptcha';
 
+const initialFormOptions:FORM_OPTIONS_TYPE = {
+    'courseTypes': [],
+    'courseSchedules': [],
+};
+
+const initialFormData:FORM_TYPE = {
+    name: "",
+    phoneNo: "",
+    email: "",
+    courseType: "",
+    courseSchedule: "",
+}
+
 const RegForm = () : JSX.Element => {
     const isDesktop = useMediaQuery('(min-width: 960px)');
     const longItemSpan = isDesktop ? 2 : 1;
+    const [formOptions, setFormOptions] = useState<FORM_OPTIONS_TYPE>(initialFormOptions);
     const [isVerified, setIsVerified] = useState<boolean>(false);
+    const [formData, setFormData] = useState<FORM_TYPE>(initialFormData);
 
-    const [formData, setFormData] = useState<FORM_TYPE>({
-        name: "",
-        phoneNo: "",
-        email: "",
-        courseType: "",
-        courseSchedule: ""
-    });
+    const stringifySchedule = (sched:any) => {
+        var str:string = `${sched.attributes.name}: `;
+        sched.attributes.sessions.forEach((item: any, idx: number) => {
+            str += `${item.dayAndTime} & `;
+        });
 
-    // deprecated
-    const sendEmail = () => {
-        axios.post('/api/submit-form',{
-            body: JSON.stringify(formData),
-        })
-        .then(
-            response => console.log(response)
-        )
+        return str.slice(0, str.length - 2);
+    }
+
+    const appendSchedules = (data:any[]) => {
+        data.forEach((item, idx) => {
+            const newSchedule = stringifySchedule(item);
+            setFormOptions(prev => ({
+                ...prev, courseSchedules:[...prev.courseSchedules, newSchedule]
+            }))
+        });
+    }
+
+    const appendCourseTypes = (data:any[]) => {
+        data.forEach((item, idx) => {
+            const courseType = item.attributes.courseName;
+            setFormOptions(prev => ({
+                ...prev, courseTypes:[...prev.courseTypes, courseType]
+            }))
+        });
+    }
+
+    const fetchFormOptions = () => {
+        axios
+            .get(`/api/course-schedules?populate=*`)
+            .then(response => {
+                appendSchedules(response.data.data);
+            })
+            .catch(error => {
+                console.log("ERROR: ", error);
+            });
+        
+        axios
+            .get(`/api/course-options?populate=*`)
+            .then(response => {
+                appendCourseTypes(response.data.data);
+            })
+            .catch(error => {
+                console.log("ERROR: ", error);
+            });
     }
 
     const onVerify = (recaptchaResponse:any) => {
@@ -38,7 +82,6 @@ const RegForm = () : JSX.Element => {
       };
 
     const handleFormChange = (e:ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-        // console.log(e.target.name, e.target.value);
         e.preventDefault();
         setFormData({
             ...formData,
@@ -107,6 +150,10 @@ const RegForm = () : JSX.Element => {
             })
         }
     }
+
+    useEffect(() => {
+        fetchFormOptions();
+    }, []);
     
     return(
         <CardContainer>
@@ -158,9 +205,10 @@ const RegForm = () : JSX.Element => {
                             onChange={handleFormChange}
                         >
                             <option selected hidden>Pilih salah satu...</option>
-                            <option>Français - A1</option>
-                            <option>Français - A2</option>
-                            <option>Jepang</option>
+                            {formOptions.courseTypes.map((item, idx) => (
+                                <option key={idx}>{item}</option>
+                            ))}
+
                         </StyledSelect>
                     </FormItem>
                     <FormItem span={longItemSpan}>
@@ -171,9 +219,11 @@ const RegForm = () : JSX.Element => {
                             onChange={handleFormChange}
                         >
                             <option selected hidden>Pilih salah satu...</option>
-                            <option>19:30 setiap Selasa dan Kamis</option>
-                            <option>19:30 setiap Senin dan Rabu</option>
-                            <option>10:00 setiap Jumat dan Minggu</option>
+                            <option selected hidden>Pilih salah satu...</option>
+                            {formOptions.courseSchedules.map((item, idx) => (
+                                <option key={idx}>{item}</option>
+                            ))}
+
                         </StyledSelect>
                     </FormItem>
                     <Reaptcha 

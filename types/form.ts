@@ -5,3 +5,8 @@ export type FORM_TYPE = {
     courseType: string,
     courseSchedule: string
 }
+
+export type FORM_OPTIONS_TYPE = {
+    courseTypes:string[],
+    courseSchedules:string[]
+}

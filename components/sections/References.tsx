@@ -33,18 +33,12 @@ const SliderColWrapper = styled(Section.ColWrapper)`
     `}
 `;
 
-const initialSlides:SLIDE_PROPS_TYPE[] = [
-    {imgSrc: "https://via.placeholder.com/200x200.png", alt: "TODO"},
-    {imgSrc: "https://via.placeholder.com/200x200.png", alt: "TODO"},
-    {imgSrc: "https://via.placeholder.com/200x200.png", alt: "TODO"},
-    {imgSrc: "https://via.placeholder.com/200x200.png", alt: "TODO"},
-    {imgSrc: "https://via.placeholder.com/300x300.png", alt: "TODO"},
-];
+const initialSlides:SLIDE_PROPS_TYPE[] = [];
 
 const References = () => {
     const sectionName = "SumberMateri";
     const sliderRef = useRef<any>(null);
-    const [slides, setSlides] = useState<SLIDE_PROPS_TYPE[]>(initialSlides);
+    const [data, setData] = useState<any>();
 
     const handlePrev = useCallback(() => {
       if (!sliderRef.current) return;
@@ -55,23 +49,12 @@ const References = () => {
       if (!sliderRef.current) return;
       sliderRef.current.swiper.slideNext();
     }, []);
-
-    const appendToSlides = (data: any[]): void => {
-        data.forEach((value, idx) => {
-            setSlides(current => [...current, {
-                'imgSrc': value.attributes.url, 
-                'alt': value.attributes.alt, 
-                'href': value.attributes.externalLink
-            }]);
-        });
-    }
     
     const fetchSlides = (): void => {
         axios
-            .get(`/api/landing-material-sources`)
+            .get(`/api/landing?populate[SumberMateri][populate]=*`)
             .then(response => {
-                appendToSlides(response.data.data);
-                // console.log(response.data.data);
+                setData(response.data.data.attributes.SumberMateri);
             })
             .catch(error => {
                 console.log("ERROR: ", error);
@@ -84,18 +67,15 @@ const References = () => {
 
 
     return (
-        <Section.SectionWrapper className="bg-2-light-blue text-3-tinted-white">
+        <Section.SectionWrapper
+            style={{'backgroundImage': `url("${data?.bg.url}")`, 'color': `${data?.textColor}`}}>
             <RowWrapper1>
                     <Title1>
                         <Element name={sectionName}>
                             Sumber Materi
                         </Element>
                     </Title1>
-                    <Section.Body>
-                        Bahan materi yang digunakan untuk belajar semuanya diambil dari sini! 
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-                    </Section.Body>
+                    <Section.Body>{data?.body}</Section.Body>
             </RowWrapper1>
             <Section.RowWrapper>
                 <SliderColWrapper>
@@ -123,12 +103,12 @@ const References = () => {
                         }}
 
                     >
-                        {slides.map((item:SLIDE_PROPS_TYPE, idx) => {
+                        {data?.slides.map((item:SLIDE_PROPS_TYPE, idx:number) => {
                             return (
                                 <SwiperSlide key={idx} >
                                     <div>
                                         <Image 
-                                            src={item.imgSrc}
+                                            src={item.url}
                                             width={160}
                                             height={160}
                                             alt={item.alt}

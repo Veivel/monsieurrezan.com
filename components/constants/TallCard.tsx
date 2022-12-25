@@ -16,7 +16,7 @@ const CardContainer = styled.div`
         [border-radius: 5%] 
         [height: 550px] md:[height: 600px] 
         [background-color:#fafafa] 
-        shadow-red-900 shadow-lg text-black md:text-gray-800`
+        shadow-gray-700 shadow-lg text-black md:text-gray-800`
     }
     @media only screen and (min-width: ${768}px) {
         width: 300px;
@@ -31,7 +31,7 @@ const CardContainer = styled.div`
 `;
 
 const CardContentWrapper = styled.div`
-    ${tw`px-10 py-3`}
+    ${tw`px-10 py-3 h-[45%]`}
 `;
 
 const CardImageWrapper = styled.div`
@@ -49,7 +49,7 @@ const TallCard = (props: PACKAGE_PROPS_TYPE) : JSX.Element => {
         <CardContainer>
             <CardImageWrapper>
                 <Image 
-                    src={props.imgSrc}
+                    src={props.imgUrl}
                     width={width}
                     height={height}
                     alt="wow"
@@ -57,14 +57,17 @@ const TallCard = (props: PACKAGE_PROPS_TYPE) : JSX.Element => {
             </CardImageWrapper>
             <CardContentWrapper>
                 <CardHeader>
-                    {props.title}
+                    {props.name}
                 </CardHeader>
                 <CardBody>
                     {props.description}
                 </CardBody>
-                <br />
-                <Link href="/about"><ActionButton>Daftar untuk {props.title}</ActionButton></Link>
             </CardContentWrapper>
+            <div>
+                <Link href="/daftar">
+                    <ActionButton>Daftar</ActionButton>
+                </Link>
+            </div>
         </CardContainer>
     );
 }

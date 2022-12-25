@@ -2,7 +2,6 @@ import Head from 'next/head'
 import Hero from '../components/sections/Hero';
 import styled from 'styled-components';
 import tw from 'twin.macro';
-import Script from 'next/script';
 import Section from '../components/constants/Section';
 import About from '../components/sections/About';
 import Testimonials from '../components/sections/Testimonials';
@@ -13,7 +12,6 @@ import WhoAmI from '../components/sections/WhoAmI';
 import Socials from '../components/sections/Socials';
 import CallToAction from '../components/sections/CallToAction';
 import Documentation from '../components/sections/Documentation';
-import { AxiosProvider } from '../components/utils/context/AxiosProvider';
 
 const LandingContainer = styled.div` 
     ${tw`flex flex-col w-full h-full overflow-hidden`}
@@ -23,6 +21,7 @@ const LandingContainer = styled.div`
  * read: https://nextjs.org/docs/basic-features/data-fetching/get-static-props
  * https://nextjs.org/docs/basic-features/data-fetching/incremental-static-regeneration#on-demand-revalidation
  */
+
 export default function Home() {
     return (
         <LandingContainer>
@@ -31,37 +30,33 @@ export default function Home() {
                 <meta name="description" content="Website dari guru bahasa perancis Monsieur Rezan" />
                 <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
                 <link rel="icon" href="/favicon.ico" />
-                <link href="https://cdn.jsdelivr.net/npm/swiffy-slider@1.6.0/dist/css/swiffy-slider.min.css" rel="stylesheet"></link>
             </Head>
-            <Script src="https://cdn.jsdelivr.net/npm/swiffy-slider@1.6.0/dist/js/swiffy-slider.min.js" defer/>
 
-            <AxiosProvider>
-                <Hero />
-                <Suspense>
-                    <About />
-                </Suspense>
-                <Suspense>
-                    <References />
-                </Suspense>
-                <Suspense>
-                    <Testimonials />
-                </Suspense>
-                <Suspense>
-                    <Packages />
-                </Suspense>
-                <Suspense>
-                    <WhoAmI />
-                </Suspense>
-                <Suspense>
-                    <Socials />
-                </Suspense>
-                <Suspense>
-                    <Documentation />
-                </Suspense>
-                <Suspense>
-                    <CallToAction />
-                </Suspense>
-            </AxiosProvider>
+            <Hero />
+            <Suspense fallback="loading">
+                <About />
+            </Suspense>
+            <Suspense fallback="loading">
+                <References />
+            </Suspense>
+            <Suspense fallback="loading">
+                <Testimonials />
+            </Suspense>
+            <Suspense fallback="loading">
+                <Packages />
+            </Suspense>
+            <Suspense fallback="loading">
+                <WhoAmI />
+            </Suspense>
+            <Suspense fallback="loading">
+                <Socials />
+            </Suspense>
+            <Suspense fallback="loading">
+                <Documentation />
+            </Suspense>
+            <Suspense fallback="loading">
+                <CallToAction />
+            </Suspense>
 
         </LandingContainer>
     );

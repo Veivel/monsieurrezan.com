@@ -1,5 +1,5 @@
 # monsieurrezan.com
-![Vercel](https://vercelbadge.vercel.app/api/veivel/monsieurrezan.com)
+![Vercel](https://vercelbadge.vercel.app/api/veivel/monsieurrezan.com?style=for-the-badge)
 ![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
 ![Next JS](https://img.shields.io/badge/Next-black?style=for-the-badge&logo=next.js&logoColor=white)
 ![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white)
@@ -18,6 +18,6 @@ I also took the liberty of creating a headless CMS. See ![https://github.com/Vei
 ## Development Process & Tech
 
 ## What's next?
-1. continue cms integration
-1. try using strapi email api
-2. seo & analytics (final)
+1. make responsive for XL screens
+2. integrate bg "blocks" fetched from strapi (and other customizability features), 
+3. seo & analytics (final)

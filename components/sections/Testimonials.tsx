@@ -2,8 +2,9 @@ import Section from "../constants/Section";
 import Image from "next/image";
 import useMediaQuery from "../utils/media/media";
 import { REVIEW_SLIDE_PROPS_TYPE } from "../../types/props";
-import tw, { styled } from "twin.macro";
 import { Element } from "react-scroll";
+import axios from "axios";
+import { useEffect, useState } from "react";
 
 import { Swiper, SwiperSlide, useSwiper } from 'swiper/react';
 import { EffectCards } from "swiper";
@@ -11,58 +12,41 @@ import "swiper/css";
 import "swiper/css/effect-cards";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
-import axios from "axios";
-import { useEffect, useState } from "react";
 
-const ColWrapper1 = styled(Section.ColWrapper)`
-    ${tw`px-8 md:ml-36 mr-0`}
-`;
-
-const initialSlides:REVIEW_SLIDE_PROPS_TYPE[] = [
-
-];
+const initialSlides:REVIEW_SLIDE_PROPS_TYPE[] = [];
 
 const Testimonials = () : JSX.Element => {
-    // const setCurrentSection = useGlobalStore(state => state.setActiveSection);
     const isDesktop = useMediaQuery('(min-width: 960px)');
     const sectionName = "Testimoni";
-    const [slides, setSlides] = useState<REVIEW_SLIDE_PROPS_TYPE[]>(initialSlides);
-
-        /** Append array of (slide) objects to slide State */
-        const appendToSlides = (data: any[]): void => {
-            data.forEach((value, idx) => {
-                setSlides(current => [...current, {
-                    'reviewerName': value.attributes.reviewerName,
-                    'reviewerInfo': value.attributes.reviewerInfo,
-                    'reviewerPicSrc': value.attributes.reviewerPictureSrc,
-                    'text': value.attributes.text,
-                }]);
+    const [data, setData] = useState<any>();
+    
+    const fetchData = (): void => {
+        axios
+            .get(`/api/landing?populate[testimonials][populate]=*`)
+            .then(response => {
+                setData(response.data.data.attributes.testimonials)
+            })
+            .catch(error => {
+                console.log("ERROR: ", error);
             });
-        }
-    
-        const fetchSlides = (): void => {
-            axios
-                .get(`/api/landing-reviews`)
-                .then(response => {
-                    appendToSlides(response.data.data);
-                })
-                .catch(error => {
-                    console.log("ERROR: ", error);
-                });
-        }
-    
-        useEffect(() => {
-            fetchSlides();
-        }, []);
+    }
+
+    useEffect(() => {
+        fetchData();
+    }, []);
     
     return (
-        <Section.SectionWrapper className=" bg-3-tinted-white">
+        <Section.SectionWrapper 
+            style={{'backgroundImage': `url("${data?.bg.url}")`, 'color': `${data?.textColor}`}}
+        >
             <div className="flex flex-col md:flex-row">
                 <div className="flex flex-col px-[2.5rem] w-[100%] md:pl-[15rem] md:pr-[10rem] md:w-[50%] mr-0 justify-center">
                     <Element name={sectionName}>
                         <Section.Title className="text-center">Kata Mereka</Section.Title>
                     </Element>
-                    <Section.Body style={{'textAlign': 'center', 'marginBottom': '30px'}}>Jangan percaya kata kami. Percayakan kata mereka.</Section.Body>
+                    <Section.Body style={{'textAlign': 'center', 'marginBottom': '30px'}}>
+                        Jangan percaya kata kami. Percayakan kata mereka.
+                    </Section.Body>
                 </div>
                 <div className="px-[3.5rem] md:pr-[15rem]">
                     <Swiper
@@ -72,7 +56,7 @@ const Testimonials = () : JSX.Element => {
                         slidesPerView="auto"
                         className="effectStuff shadow-xl shadow-gray-700 w-[250px] h-[350px] rounded-xl"
                     >
-                        {slides.map((item:REVIEW_SLIDE_PROPS_TYPE, idx) => {
+                        {data?.review.map((item:REVIEW_SLIDE_PROPS_TYPE, idx:number) => {
                             return (
                                 <SwiperSlide 
                                     key={idx} 
@@ -84,7 +68,7 @@ const Testimonials = () : JSX.Element => {
                                         <div className="flex flex-row mb-6">
                                             <div className="relative w-[60px] h-[60px] overflow-hidden mr-3">
                                                 <Image 
-                                                    src={item.reviewerPicSrc}
+                                                    src={item.reviewerPictureUrl}
                                                     alt={item.reviewerName}
                                                     className="rounded-full"
                                                     style={{'objectFit': 'cover'}}
@@ -92,15 +76,15 @@ const Testimonials = () : JSX.Element => {
                                                 />
                                             </div>
                                             <div>
-                                                <p className="font-extrabold text-3xl align-middle">
+                                                <h2 className="font-extrabold text-2xl align-middle">
                                                     {item.reviewerName}
-                                                </p>
+                                                </h2>
                                                 <p className="text-xs">
                                                     {item.reviewerInfo}
                                                 </p>
                                             </div>
                                         </div>
-                                        <p className="font-light text-xs md:text-sm">
+                                        <p className="font-light text-sm">
                                             {'❝ '}
                                                 {item.text}
                                             {' ❞'}
