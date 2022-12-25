@@ -30,19 +30,47 @@ const RegForm = () : JSX.Element => {
     const [isVerified, setIsVerified] = useState<boolean>(false);
     const [formData, setFormData] = useState<FORM_TYPE>(initialFormData);
 
-    const append = (data:any[]) => {
+    const stringifySchedule = (sched:any) => {
+        var str:string = `${sched.attributes.name}: `;
+        sched.attributes.sessions.forEach((item: any, idx: number) => {
+            str += `${item.dayAndTime} & `;
+        });
+
+        return str.slice(0, str.length - 2);
+    }
+
+    const appendSchedules = (data:any[]) => {
         data.forEach((item, idx) => {
+            const newSchedule = stringifySchedule(item);
             setFormOptions(prev => ({
-                ...prev, courseTypes:[...prev.courseTypes, item.attributes.name]
+                ...prev, courseSchedules:[...prev.courseSchedules, newSchedule]
+            }))
+        });
+    }
+
+    const appendCourseTypes = (data:any[]) => {
+        data.forEach((item, idx) => {
+            const courseType = item.attributes.courseName;
+            setFormOptions(prev => ({
+                ...prev, courseTypes:[...prev.courseTypes, courseType]
             }))
         });
     }
 
     const fetchFormOptions = () => {
         axios
-            .get(`/api/packages`)
+            .get(`/api/course-schedules?populate=*`)
             .then(response => {
-                append(response.data.data);
+                appendSchedules(response.data.data);
+            })
+            .catch(error => {
+                console.log("ERROR: ", error);
+            });
+        
+        axios
+            .get(`/api/course-options?populate=*`)
+            .then(response => {
+                appendCourseTypes(response.data.data);
             })
             .catch(error => {
                 console.log("ERROR: ", error);
@@ -54,7 +82,6 @@ const RegForm = () : JSX.Element => {
       };
 
     const handleFormChange = (e:ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-        // console.log(e.target.name, e.target.value);
         e.preventDefault();
         setFormData({
             ...formData,
@@ -192,9 +219,11 @@ const RegForm = () : JSX.Element => {
                             onChange={handleFormChange}
                         >
                             <option selected hidden>Pilih salah satu...</option>
-                            <option>19:30 setiap Selasa dan Kamis</option>
-                            <option>19:30 setiap Senin dan Rabu</option>
-                            <option>10:00 setiap Jumat dan Minggu</option>
+                            <option selected hidden>Pilih salah satu...</option>
+                            {formOptions.courseSchedules.map((item, idx) => (
+                                <option key={idx}>{item}</option>
+                            ))}
+
                         </StyledSelect>
                     </FormItem>
                     <Reaptcha 

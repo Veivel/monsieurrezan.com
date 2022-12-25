@@ -12,7 +12,6 @@ import WhoAmI from '../components/sections/WhoAmI';
 import Socials from '../components/sections/Socials';
 import CallToAction from '../components/sections/CallToAction';
 import Documentation from '../components/sections/Documentation';
-import { AxiosProvider } from '../components/utils/context/AxiosProvider';
 
 const LandingContainer = styled.div` 
     ${tw`flex flex-col w-full h-full overflow-hidden`}
@@ -33,33 +32,31 @@ export default function Home() {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
 
-            <AxiosProvider>
-                <Hero />
-                <Suspense fallback="loading">
-                    <About />
-                </Suspense>
-                <Suspense fallback="loading">
-                    <References />
-                </Suspense>
-                <Suspense fallback="loading">
-                    <Testimonials />
-                </Suspense>
-                <Suspense fallback="loading">
-                    <Packages />
-                </Suspense>
-                <Suspense fallback="loading">
-                    <WhoAmI />
-                </Suspense>
-                <Suspense fallback="loading">
-                    <Socials />
-                </Suspense>
-                <Suspense fallback="loading">
-                    <Documentation />
-                </Suspense>
-                <Suspense fallback="loading">
-                    <CallToAction />
-                </Suspense>
-            </AxiosProvider>
+            <Hero />
+            <Suspense fallback="loading">
+                <About />
+            </Suspense>
+            <Suspense fallback="loading">
+                <References />
+            </Suspense>
+            <Suspense fallback="loading">
+                <Testimonials />
+            </Suspense>
+            <Suspense fallback="loading">
+                <Packages />
+            </Suspense>
+            <Suspense fallback="loading">
+                <WhoAmI />
+            </Suspense>
+            <Suspense fallback="loading">
+                <Socials />
+            </Suspense>
+            <Suspense fallback="loading">
+                <Documentation />
+            </Suspense>
+            <Suspense fallback="loading">
+                <CallToAction />
+            </Suspense>
 
         </LandingContainer>
     );

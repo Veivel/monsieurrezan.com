@@ -15,7 +15,6 @@
     "@types/react-dom": "18.0.9",
     "axios": "^1.2.1",
     "emailjs": "^4.0.1",
-    "hamburger-react": "^2.5.0",
     "next": "13.0.4",
     "react": "18.2.0",
     "react-dom": "18.2.0",
@@ -25,14 +24,11 @@
     "react-social-media-embed": "^2.2.10",
     "reaptcha": "^1.12.1",
     "styled-components": "^5.3.6",
-    "swiffy-slider": "^1.6.0",
     "swiper": "^8.4.5",
     "typescript": "4.9.3",
     "zustand": "^4.1.4"
   },
   "devDependencies": {
-    "@types/react-burger-menu": "^2.8.3",
-    "@types/react-page-visibility": "^6.4.1",
     "@types/react-scroll": "^1.8.5",
     "@types/styled-components": "^5.1.26",
     "autoprefixer": "^10.4.13",
