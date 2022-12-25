@@ -1,36 +1,52 @@
-import React, { ChangeEvent, useRef, useState } from "react";
+import React, { ChangeEvent, useEffect, useRef, useState } from "react";
 import ActionButton from "../constants/buttons/ActionButton";
 import Section from "../constants/Section";
 import useMediaQuery from "../utils/media/media";
 import emailjs from '@emailjs/browser';
 import { FormItem, StyledInput, StyledSelect } from "../constants/Form";
 import { CardContainer, CardContentWrapper, CardHeader, CardSubheader } from "../constants/PageCard";
-import { FORM_TYPE } from "../../types/form";
+import { FORM_OPTIONS_TYPE, FORM_TYPE } from "../../types/form";
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
 import Reaptcha from 'reaptcha';
 
+const initialFormOptions:FORM_OPTIONS_TYPE = {
+    'courseTypes': [],
+    'courseSchedules': [],
+};
+
+const initialFormData:FORM_TYPE = {
+    name: "",
+    phoneNo: "",
+    email: "",
+    courseType: "",
+    courseSchedule: "",
+}
+
 const RegForm = () : JSX.Element => {
     const isDesktop = useMediaQuery('(min-width: 960px)');
     const longItemSpan = isDesktop ? 2 : 1;
+    const [formOptions, setFormOptions] = useState<FORM_OPTIONS_TYPE>(initialFormOptions);
     const [isVerified, setIsVerified] = useState<boolean>(false);
+    const [formData, setFormData] = useState<FORM_TYPE>(initialFormData);
 
-    const [formData, setFormData] = useState<FORM_TYPE>({
-        name: "",
-        phoneNo: "",
-        email: "",
-        courseType: "",
-        courseSchedule: ""
-    });
+    const append = (data:any[]) => {
+        data.forEach((item, idx) => {
+            setFormOptions(prev => ({
+                ...prev, courseTypes:[...prev.courseTypes, item.attributes.name]
+            }))
+        });
+    }
 
-    // deprecated
-    const sendEmail = () => {
-        axios.post('/api/submit-form',{
-            body: JSON.stringify(formData),
-        })
-        .then(
-            response => console.log(response)
-        )
+    const fetchFormOptions = () => {
+        axios
+            .get(`/api/packages`)
+            .then(response => {
+                append(response.data.data);
+            })
+            .catch(error => {
+                console.log("ERROR: ", error);
+            });
     }
 
     const onVerify = (recaptchaResponse:any) => {
@@ -107,6 +123,10 @@ const RegForm = () : JSX.Element => {
             })
         }
     }
+
+    useEffect(() => {
+        fetchFormOptions();
+    }, []);
     
     return(
         <CardContainer>
@@ -158,9 +178,10 @@ const RegForm = () : JSX.Element => {
                             onChange={handleFormChange}
                         >
                             <option selected hidden>Pilih salah satu...</option>
-                            <option>Français - A1</option>
-                            <option>Français - A2</option>
-                            <option>Jepang</option>
+                            {formOptions.courseTypes.map((item, idx) => (
+                                <option key={idx}>{item}</option>
+                            ))}
+
                         </StyledSelect>
                     </FormItem>
                     <FormItem span={longItemSpan}>

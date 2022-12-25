@@ -1,9 +1,6 @@
-import styled, { CSSProperties } from "styled-components";
+import styled from "styled-components";
 import tw from "twin.macro";
 import Image from "next/image";
-import { Carousel } from "react-responsive-carousel";
-import 'react-responsive-carousel/lib/styles/carousel.min.css'
-import Slide from "../constants/Slide";
 import { CAPTIONED_SLIDE_PROPS_TYPE } from "../../types/props";
 import useMediaQuery from "../utils/media/media";
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -29,9 +26,7 @@ const FeaturedContainer = styled.div`
     `}
 `;
 
-const initialSlides:CAPTIONED_SLIDE_PROPS_TYPE[] = [
-    {imgSrc:"https://via.placeholder.com/1440x640.png", alt:"alt", captionText:"Caption Text", captionTitle:"Caption Title"},
-];
+const initialSlides:CAPTIONED_SLIDE_PROPS_TYPE[] = [];
 
 const Hero = () => {
     const isDesktop = useMediaQuery('(min-width: 960px)');
@@ -40,21 +35,21 @@ const Hero = () => {
 
     /** Append array of (slide) objects to slide State */
     const appendToSlides = (data: any[]): void => {
-        data.forEach((value, idx) => {
+        data.forEach((item, idx) => {
             setSlides(current => [...current, {
-                'imgSrc': value.attributes.url, 
-                'alt': value.attributes.alt, 
-                'captionText': value.attributes.captionText,
-                'captionTitle': value.attributes.captionTitle,
+                'url': item.url, 
+                'alt': item.alt, 
+                'captionText': item.captionText,
+                'captionTitle': item.captionTitle,
             }]);
         });
     }
 
     const fetchSlides = (): void => {
         axios
-            .get(`/api/landing-hero-slides`)
+            .get(`/api/landing?populate[hero][populate]=*`)
             .then(response => {
-                appendToSlides(response.data.data);
+                appendToSlides(response.data.data.attributes.hero.slides);
             })
             .catch(error => {
                 console.log("ERROR: ", error);
@@ -103,14 +98,14 @@ const Hero = () => {
                         <SwiperSlide>
                             <div className="w-[1440px] h-[640px] overflow-hidden">
                                 <Image 
-                                    src={item.imgSrc}
+                                    src={item.url}
                                     alt={item.alt}
                                     fill
                                     style={{'objectFit': 'cover'}}
                                 />
-                                <p className="absolute top-12 md:top-24 left-4 md:left-24 font-bold md:font-extrabold text-4xl md:text-6xl text-white shadow-sm">
+                                <h1 className="absolute top-12 md:top-24 left-4 md:left-24 font-bold md:font-extrabold text-4xl md:text-6xl text-white shadow-sm">
                                     {item.captionTitle}
-                                </p>
+                                </h1>
                                 <p className="absolute top-[5.5rem] md:top-40 left-4 md:left-24 font-light text-xl text-white shadow-sm">
                                     {item.captionText}
                                 </p>

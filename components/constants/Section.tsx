@@ -4,7 +4,7 @@ import tw, { styled } from "twin.macro";
 class Section {
     // 1
     static SectionWrapper = styled.div`
-    ${tw`[min-height: 600px] py-8 md:py-20 md:px-12`}    
+    ${tw`[min-height: 600px] py-8 md:py-20 md:px-0 xl:px-12 2xl:px-[36rem]`}    
     `;
 
     // 2
@@ -22,7 +22,7 @@ class Section {
     // items of colwrapper
 
     static Title = styled.h1`
-        font-family: 'Helvetica', sans-serif;
+        font-family: 'Ubuntu-Regular', sans-serif;
         ${tw`font-black [line-height: 2rem] md:[line-height: 4rem] text-2xl md:text-[4rem] mb-2`}
     `;
 

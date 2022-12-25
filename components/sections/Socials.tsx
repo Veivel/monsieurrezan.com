@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import ScalingLink, { UnsizedScalingLink } from "../constants/ScalingLink";
 import SOCIAL_LINKS from "../constants/data/socials";
+import axios from "axios";
+import { SOCIAL_EMBED_TYPE } from "../../types/content";
 
 const InstaFeature = ({url}: {url:string}) : JSX.Element => {
     return(
@@ -32,22 +34,39 @@ const YoutubeFeature = ({url}: {url:string}) : JSX.Element => {
 
 const Socials = () : JSX.Element => {
     const [isLoading, setIsLoading] = useState<boolean>(true);
+    const [data, setData] = useState<any>();
+
+    const fetchEmbeds = (): void => {
+        axios
+            .get(`/api/landing?populate[socials][populate]=*`)
+            .then(response => {
+                setData(response.data.data.attributes.socials)
+                setIsLoading(false);
+            })
+            .catch(error => {
+                console.log("SOCIALS ERROR: ", error.response.data.error);
+            });
+    }
+
     useEffect(() => {
-        setIsLoading(false);
+        fetchEmbeds();
     }, []);
 
     return (
-        <Section.SectionWrapper className="h-[1800px] md:h-[1200px] bg-1-dark-blue text-white">
+        <Section.SectionWrapper 
+            className="h-[1800px] md:h-[1200px] "
+            style={{'backgroundImage': `url("${data?.bg.url}")`, 'color': `${data?.textColor}`}}
+        >
             <Section.RowWrapper>
                 <Section.ColWrapper>
                     <Section.Title className="px-8 text-center md:px-0">Dapatkan sedikit preview...</Section.Title>
                     <div className="flex flex-col md:flex-row justify-center gap-x-5 text-justify mt-12 mb-24 px-2 md:px-0 max-w-[100%]">
-                            {isLoading ? "Loading..." : <InstaFeature url="https://www.instagram.com/p/CkdK5D4AGF-/"/>}
-                            {isLoading ? "Loading..." : <YoutubeFeature url="https://youtu.be/7VSR4_tAYvw"/>}
+                            {isLoading ? "Loading..." : <InstaFeature url={data?.instagramPostUrl}/>}
+                            {isLoading ? "Loading..." : <YoutubeFeature url={data?.youtubeVideoUrl}/>}
                     </div>
                     <div className="shadow-2xl shadow-2-light-blue rounded-3xl px-1 py-6 mx-10">
                         <h2 className="text-center pb-4 font-extralight text-xl">
-                            ...dan langsung hubungi kami!
+                            ...dan langsung hubungi kami! (TODO: fix icons)
                         </h2>
                         <div className="
                             grid grid-cols-2 place-content-center

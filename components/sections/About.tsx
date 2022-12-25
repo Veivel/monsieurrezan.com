@@ -1,37 +1,44 @@
+import { useEffect, useState } from "react";
 import Section from "../constants/Section";
+import axios from "axios";
 
 const About = () : JSX.Element => {
+    const [data, setData] = useState<any>();
+
+    const fetchData = (): void => {
+        axios
+            .get(`/api/landing?populate[MauBljrPerancis][populate]=*`)
+            .then(response => {
+                setData(response.data.data.attributes.MauBljrPerancis);
+            })
+            .catch(error => {
+                console.log("ERROR: ", error);
+            });
+    }
+
+    useEffect(() => {
+        fetchData();
+    }, []);
+
     return (
-        <Section.SectionWrapper className="h-[660px] md:h-[600px] bg-1-dark-blue text-3-tinted-white mt-[150%] md:mt-0">
+        <Section.SectionWrapper 
+            className="h-[660px] md:h-[600px] mt-[150%] md:mt-0" 
+            style={{'backgroundImage': `url("${data?.bg.url}")`, 'color': `${data?.textColor}`}}
+        >
             <Section.RowWrapper>
                 <Section.ColWrapper>
                     <Section.Title className="w-[110%]">Mau belajar bahasa perancis?</Section.Title>
-                    <Section.Subtitle>Vous voulez étudiez le français?</Section.Subtitle>
+                    <Section.Subtitle>{data?.subtitle}</Section.Subtitle>
                     <br />
-                    <Section.Body>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
-                        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-                        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris 
-                        nisi ut aliquip ex ea commodo consequat.
-                    </Section.Body>
+                    <Section.Body>{data?.body}</Section.Body>
                     <br/>
                     <div className="grid grid-cols-2 md:flex md:flex-row justify-around gap-4 md:gap-x-8 text-center font-light text-sm md:text-lg">
-                        <div>
-                            <p className="w-full font-black">POINT 1</p>
-                            <p>Bisa makan sambil ngapa-ngapain.</p>
-                        </div>
-                        <div>
-                            <p className="w-full font-black">POINT 2</p>
-                            <p>Bisa belajar praktek dengan speaking.</p>
-                        </div>
-                        <div>
-                            <p className="w-full font-black">POINT 3</p>
-                            <p>Sangat seru dan asik. Asik deh.</p>
-                        </div>
-                        <div>
-                            <p className="w-full font-black">POINT 4</p>
-                            <p>Gurunya chill bangetzzzzzz.</p>
-                        </div>
+                        {data?.points.map((item:any, idx:number) => (
+                            <div key={idx} className={`w-[${100/data?.points.length}%]`}>
+                                <p className="w-full font-black">{item.leading}</p>
+                                <p>{item.subtext}</p>
+                            </div>
+                        ))}
                     </div>
                 </Section.ColWrapper>
             </Section.RowWrapper>

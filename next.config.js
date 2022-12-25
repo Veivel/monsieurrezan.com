@@ -9,7 +9,9 @@ const nextConfig = {
       'placeholder.com',
       'placekitten.com',
       'imgbox.com',
-      'images2.imgbox.com'
+      'images2.imgbox.com',
+      'drive.google.com',
+      'i.imgur.com'
     ]
   },
 }

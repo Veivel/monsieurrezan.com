@@ -1,47 +1,52 @@
+import axios from "axios";
 import Section from "../constants/Section";
 import Image from "next/image";
+import { useEffect, useState } from "react";
 import { Element } from "react-scroll";
 import tw, { styled } from "twin.macro";
-
-const ColWrapper1 = styled(Section.ColWrapper)`
-    ${tw`[width: 70%] px-16`}
-`;
+import ReactMarkdown from 'react-markdown';
 
 const WhoAmI = () : JSX.Element => {
     const SectionName = "TentangSaya"
+    const [data, setData] = useState<any>();
+
+    const fetchData = (): void => {
+        axios
+            .get(`/api/landing?populate[TentangSaya][populate]=*`)
+            .then(response => {
+                // console.log(response.data.data.attributes.TentangSaya)
+                setData(response.data.data.attributes.TentangSaya)
+            })
+            .catch(error => {
+                console.log("ERROR: ", error);
+            });
+    }
+
+    useEffect(() => {
+        fetchData();
+    }, [])
 
     return(
-        <Section.SectionWrapper className="bg-5-dark-red text-3-tinted-white">
+        <Section.SectionWrapper style={{'backgroundImage': `url("${data?.bg.url}")`, 'color': `${data?.textColor}`}}>
             <Section.RowWrapper>
                 <Section.ColWrapper>
                     <Section.Title style={{textAlign: "center"}}>
                         <Element name={SectionName}>
-                            Salut, je suis <br/> Monsieur Rezan!
+                            {data?.title}
                         </Element>
                     </Section.Title>
                     <Section.RowWrapper className="mx-4 md:mx-32 gap-x-8">
                         <Image 
                             className="shadow-md shadow-gray-600"
-                            src="https://placekitten.com/600/900"
+                            src={data?.picUrl}
                             width={600}
                             height={900}
-                            alt="TODO"
+                            alt="picture of Monsieur Rezan"
                         />
                         <div className="flex flex-col">
-                            <Section.Body>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
-                                sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-                            </Section.Body>
-                            <Section.Body>
-                                Duis aute irure dolor in 
-                                reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur:
-                            </Section.Body>
-                                <ul className="font-light text-base md:text-lg text-justify my-4">
-                                    <li>1. Uno dos tres</li>
-                                    <li>2. Satu dua tiga</li>
-                                    <li>3. Empat lima</li>
-                                    <li>5. Makan jagung</li>
-                                </ul>
+                            <ReactMarkdown>
+                                {data?.body}
+                            </ReactMarkdown>
                         </div>
                     </Section.RowWrapper>
                 </Section.ColWrapper>

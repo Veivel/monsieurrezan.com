@@ -4,29 +4,41 @@ import tw, { styled } from "twin.macro";
 import TallCard from "../constants/TallCard";
 import { PACKAGE_PROPS_TYPE } from "../../types/props";
 import { Element } from "react-scroll";
-import { useGlobalStore } from "../utils/state/store";
-import { useEffect } from "react";
+
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 const PackageCards = styled.div`
-    ${tw`flex flex-col md:flex-row [width: 100%] justify-center`}
+    ${tw`
+    flex flex-col md:grid md:place-items-center 
+    md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 
+    [width: 100%] 2xl:w-max justify-center`}
 `;
 
+const initialPackages:PACKAGE_PROPS_TYPE[] = [];
 
 const Packages = () : JSX.Element => {
     const sectionName = "Paket";
-    const setCurrentSection = useGlobalStore(state => state.setActiveSection);
+    const [data, setData] = useState<any>();
 
-    const packages:PACKAGE_PROPS_TYPE[] = [
-        {imgSrc:"https://placekitten.com/g/400/300", title:"Paket A", description:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam."},
-        {imgSrc:"https://placekitten.com/g/400/308", title:"Paket B", description:"LOREM ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam."},
-        {imgSrc:"https://placekitten.com/g/400/301", title:"Paket C", description:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam."},
-        {imgSrc:"https://placekitten.com/g/401/300", title:"Paket D", description:"LOREM ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam."},
-        {imgSrc:"https://placekitten.com/401/303", title:"Paket E", description:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam."},
-        {imgSrc:"https://via.placeholder.com/400x300.png", title:"Paket F", description:"LOREM IPSUM dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam."},
-    ];
+    const fetchData = (): void => {
+        axios
+            .get(`/api/landing?populate[packageSection][populate]=*`)
+            .then(response => {
+                setData(response.data.data.attributes.packageSection)
+            })
+            .catch(error => {
+                console.log("ERROR: ", error);
+            });
+    }
+
+    useEffect(() => {
+        fetchData();
+    }, []);
+
 
     return (
-        <Section.SectionWrapper className="bg-4-light-red text-3-tinted-white">
+        <Section.SectionWrapper style={{'backgroundImage': `url("${data?.bg.url}")`, 'color': `${data?.textColor}`}}>
             <Section.RowWrapper>
                 <div className="text-center flex flex-col md:px-48">
                     <Section.Title>
@@ -39,14 +51,9 @@ const Packages = () : JSX.Element => {
                         sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
                     </Section.Body>
                     <PackageCards>
-                        <TallCard {...packages[0]} />
-                        <TallCard {...packages[1]}/>
-                        <TallCard {...packages[2]}/>
-                    </PackageCards>
-                    <PackageCards>
-                        {/* <TallCard {...packages[3]}/> */}
-                        <TallCard {...packages[4]}/>
-                        <TallCard {...packages[5]}/>
+                        { data?.packages.map((item:any, idx:number) => (
+                            <TallCard key={idx} {...item}/>
+                        ))}
                     </PackageCards>
                 </div>
             </Section.RowWrapper>

@@ -4,7 +4,7 @@
  * */
 
 export type CAPTIONED_SLIDE_PROPS_TYPE = {
-    imgSrc: string, 
+    url: string, 
     alt: string, 
     captionText: string,
     captionTitle?: string,
@@ -14,20 +14,20 @@ export type CAPTIONED_SLIDE_PROPS_TYPE = {
 
 export type REVIEW_SLIDE_PROPS_TYPE = {
     reviewerName: string,
-    reviewerPicSrc: string,
+    reviewerPictureUrl: string,
     reviewerInfo: string,
     text: string,
 }
 
 export type SLIDE_PROPS_TYPE = {
-    imgSrc: string, 
+    url: string, 
     alt: string, 
 };
 
 /** Package Props for Packages' Tall Cards */
 export type PACKAGE_PROPS_TYPE = {
-    imgSrc: string,
-    title: string,
+    imgUrl: string,
+    name: string,
     description: string,
     // actionBtnQuery: string
 }

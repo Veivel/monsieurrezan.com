@@ -5,14 +5,13 @@ import Link from "next/link";
 import styled from "styled-components";
 import tw from "twin.macro";
 import useMediaQuery from "../utils/media/media";
-import { slide as Menu } from "react-burger-menu";
 import Branding from "../constants/Branding";
 import { Link as ScrollLink } from "react-scroll";
 import { useGlobalStore } from "../utils/state/store";
 import FancyButton from "../constants/buttons/FancyButton";
 import Drawer from "./Drawer";
 import { useState } from "react";
-import ScalingLink, { UnsizedScalingLink } from "../constants/ScalingLink";
+import { UnsizedScalingLink } from "../constants/ScalingLink";
 import { landingSections } from "../constants/data/sections";
 
 // Top-most navbar container
@@ -32,7 +31,7 @@ const NavItemWrapper = styled.ul`
 `;
 
 const NavbarItem = styled.li`
-    ${tw`md:mr-8 flex items-center justify-center min-h-full text-black cursor-pointer font-normal  md:text-base`}
+    ${tw`lg:mr-6 xl:mr-8 flex items-center justify-center min-h-full cursor-pointer text-sm xl:text-base`}
 `;
 
 // Call-to-action button
@@ -57,7 +56,7 @@ const Navbar = () => {
             <>
                 {/* desktop view */}
                 <Link className="text-white w-auto" href="/daftar/">
-                    <FancyButton style={{'marginRight': '16px'}}>
+                    <FancyButton className="mr-[16px] ml-auto">
                         Daftar Sekarang!
                     </FancyButton>
                 </Link>
